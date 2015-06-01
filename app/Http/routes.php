@@ -19,10 +19,9 @@ Route::get('simon', function () {
     return view('index_simon');
 });
 
-//Route::resource('donatur', 'DonaturController');
-//Route::resource('donasi', 'DonasiController');
+Route::resource('proyek', 'ProyekController');
 
-//Route::controllers([
-//	'auth' => 'Auth\AuthController',
-//	'password' => 'Auth\PasswordController',
-//]);
+Route::controllers([
+	'auth' => 'Auth\AuthController',
+	'password' => 'Auth\PasswordController',
+]);
