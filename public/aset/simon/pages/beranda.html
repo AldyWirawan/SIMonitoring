@@ -1,0 +1,65 @@
+<script type="text/javascript">
+	$(document).ready(function(){
+		$('#grafik-kinerja').highcharts({
+			chart: {
+				type: 'bar'
+			},
+			title: {
+				text: ''
+			},
+			xAxis: {
+				categories: ['UUK A', 'UUK B', 'UUK C', 'UUK D', 'UUK E', 'UUK F']
+			},
+			yAxis: {
+				min : 0,
+				max : 100,
+				title: {
+					text: 'Kinerja'
+				}
+			},
+			series: [{
+				name: 'pendapatan',
+				data: [50, 60, 35, 78, 82, 41]
+			}]
+		});
+		$('#grafik-proyek').highcharts({
+			chart: {
+				type: 'bar'
+			},
+			title: {
+				text: ''
+			},
+			xAxis: {
+				categories: ['Proyek A', 'Proyek B', 'Proyek C', 'Proyek D', 'Proyek E', 'Proyek F']
+			},
+			yAxis: {
+				min : 0,
+				max : 100,
+				title: {
+					text: 'Progress (%)'
+				}
+			},
+			series: [{
+				name: 'Progress',
+				data: [90, 80, 65, 55, 70, 83]
+			}]
+		});
+	});
+</script>
+
+<div style="width: 87%; margin: 25px auto">
+	<div class="row">
+		<div class="col-md-6">
+			<div class="well">
+				<h2 class="text-center">Kinerja UUK</h2>
+				<div id="grafik-kinerja"></div>
+			</div>
+		</div>
+		<div class="col-md-6">
+			<div class="well">
+				<h2 class="text-center">Progress Proyek</h2>
+				<div id="grafik-proyek"></div>
+			</div>
+		</div>
+	</div>
+</div>
