@@ -19,9 +19,11 @@ Route::get('simon', function () {
     return view('index_simon');
 });
 
+Route::post('proyek/dataTableAll', 'ProyekController@dataTableAll');
+
 Route::resource('proyekDashboard', 'ProyekDashboardController');
 
-Route::resource('proyek', 'ProyekController');
+//Route::resource('proyek', 'ProyekController');
 
 Route::controllers([
 	'auth' => 'Auth\AuthController',

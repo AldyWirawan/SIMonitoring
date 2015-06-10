@@ -15,6 +15,7 @@ class CreateTabelUUK extends Migration {
 		Schema::create('UUK', function(Blueprint $table)
 		{
 			$table->increments('id');
+			$table->string('nama_uuk');
 			$table->string('waktu_didirikan');
 			$table->string('kepemilikan_ITB');
 			$table->string('penjabat');
