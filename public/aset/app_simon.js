@@ -29,6 +29,26 @@ app.factory("ProyekSvc", function($http){
 	}
 })
 
+app.factory("ProyekDashboardSvc", function($http){
+	return{
+		all: function(){
+			var req = $http({method:'GET', url:'proyekDashboard'});
+			return req;
+		}
+	}
+})
+
+app.controller('ProyekCtrl', function($scope, ProyekSvc){
+	
+})
+
+app.controller('DashboardCtrl', function($scope, ProyekDashboardSvc){
+	var getProyekDashboard = ProyekDashboardSvc.all();
+	getProyekDashboard.success(function(response){
+		$scope.proyeks = response;
+	});
+})
+
 app.controller('NavController', function($scope){
 	$scope.halaman = "beranda";
 });
@@ -36,13 +56,14 @@ app.controller('NavController', function($scope){
 //This will handle all of our routing
 app.config(function($routeProvider, $locationProvider){	
 	$routeProvider.when('/',{
-		templateUrl:'aset/simon/pages/beranda.html'
+		templateUrl:'aset/simon/pages/beranda.html',
+		controller:'DashboardCtrl'
 	});
 	$routeProvider.when('/UUK',{
-		templateUrl:'aset/simon/pages/UUK.html',
+		templateUrl:'aset/simon/pages/UUK.html'
 	});
 	$routeProvider.when('/lappro',{
-		templateUrl:'aset/simon/pages/lappro.html',
+		templateUrl:'aset/simon/pages/lappro.html'
 	});
 });
 

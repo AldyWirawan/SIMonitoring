@@ -12,6 +12,8 @@
 	<script src="aset/js/angular.js"></script>
 	<script src="aset/js/angular-route.js"></script>
 	<script src="aset/js/highcharts.js"></script>
+	<script src="aset/js/jquery.dataTables.js"></script>
+	<script src="aset/js/jquery.dataTables.min.js"></script>
 
 	<script src="aset/app_simon.js"></script>
 

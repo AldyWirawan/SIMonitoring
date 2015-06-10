@@ -19,6 +19,8 @@ Route::get('simon', function () {
     return view('index_simon');
 });
 
+Route::resource('proyekDashboard', 'ProyekDashboardController');
+
 Route::resource('proyek', 'ProyekController');
 
 Route::controllers([
