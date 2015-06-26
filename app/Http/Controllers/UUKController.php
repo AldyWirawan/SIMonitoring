@@ -117,8 +117,7 @@ class UUKController extends Controller {
 
 	public function dataTableAll()
 	{
-
-		$UUKs = UUK::select(['nama_uuk', 'pin', 'waktu_didirikan', 'kepemilikan_ITB', 'penjabat', 'alamat']);
+		$UUKs = UUK::select(['nama_uuk', 'waktu_didirikan', 'kepemilikan_ITB', 'penjabat', 'alamat']);
         return Datatables::of($UUKs)->make();
 	}
 

@@ -20,10 +20,11 @@ Route::get('simon', function () {
 });
 
 Route::get('proyek/dataTableAll', 'ProyekController@dataTableAll');
+Route::get('uuk/dataTableAll', 'UUKController@dataTableAll');
 
 Route::resource('proyekDashboard', 'ProyekDashboardController');
-
-//Route::resource('proyek', 'ProyekController');
+Route::resource('proyek', 'ProyekController');
+Route::resource('uuk', 'UUKController');
 
 Route::controllers([
 	'auth' => 'Auth\AuthController',

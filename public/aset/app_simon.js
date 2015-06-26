@@ -32,23 +32,23 @@ app.factory("ProyekSvc", function($http){
 app.factory("UUKSvc", function($http){
 	return{
 		all: function(){
-			var req = $http({method:'GET', url:'UUK'});
+			var req = $http({method:'GET', url:'uuk'});
 			return req;
 		},
 		create: function(data){
-			var req = $http({method:'GET', url:'UUK/create', params:data});
+			var req = $http({method:'GET', url:'uuk/create', params:data});
 			return req;
 		},
 		get: function(id){
-			var req = $http.get('UUK/'+id);
+			var req = $http.get('uuk/'+id);
 			return req;
 		},
 		update: function(id, data){
-			var req = $http.put('UUK/'+id, data);
+			var req = $http.put('uuk/'+id, data);
 			return req;
 		},
 		delete: function(id){
-			var req = $http.delete('UUK/'+id);
+			var req = $http.delete('uuk/'+id);
 			return req;
 		}
 	}
@@ -74,6 +74,18 @@ app.controller('ProyekCtrl', function($scope, ProyekSvc, UUKSvc){
 		var req = UUKSvc.all();
 		req.success(function(res){
 			$scope.UUKs = res;
+		});
+	}
+})
+
+app.controller('UUKCtrl', function($scope, UUKSvc){
+	$scope.simpan_UUK = function(){
+		$scope.is_saving = true;
+		var req = UUKSvc.create($scope.temp_UUK);
+		req.success(function(res){
+			$scope.is_saving = false;
+			alert("UUK "+res.status);
+			$location.path('/UUK');
 		});
 	}
 })
@@ -104,6 +116,10 @@ app.config(function($routeProvider, $locationProvider){
 	$routeProvider.when('/tambah_proyek', {
 		templateUrl:'aset/simon/pages/tambah_proyek.html',
 		controller:'ProyekCtrl'
+	});
+	$routeProvider.when('/tambah_UUK', {
+		templateUrl:'aset/simon/pages/tambah_UUK.html',
+		controller:'UUKCtrl'
 	});
 });
 

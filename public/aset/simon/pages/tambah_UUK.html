@@ -1,0 +1,47 @@
+<div class="row">
+	<div class="col-md-6">
+		<h1 class="text-center" style="margin-bottom: 40px">Tambah UUK</h1>
+
+		<form class="form-horizontal">
+			<div class="form-group">
+				<label class="control-label col-md-2">Nama</label>
+				<div class="col-md-10">
+					<input type="text" ng-model="temp_UUK.nama_uuk" class="form-control" placeholder="Nama">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="control-label col-md-2">Waktu Didirikan</label>
+				<div class="col-md-10">
+					<input type="text" ng-model="temp_UUK.waktu_didirikan" class="form-control" placeholder="Waktu Didirikan">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="control-label col-md-2">Kepemilikan ITB</label>
+				<div class="col-md-10">
+					<input type="text" ng-model="temp_UUK.kepemilikan_ITB" class="form-control" placeholder="Persentase Kepemilikan ITB">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="control-label col-md-2">Penjabat</label>
+				<div class="col-md-10">
+					<input type="text" ng-model="temp_UUK.penjabat" class="form-control" placeholder="Penjabat">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="control-label col-md-2">Alamat</label>
+				<div class="col-md-10">
+					<input type="text" ng-model="temp_UUK.alamat" class="form-control" placeholder="Alamat">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="control-label col-md-2"></label>
+				<div class="col-md-10">
+					<button ng-click="simpan_UUK()" class="btn btn-success">Simpan</button>
+					<a href="#/UUK" class="btn btn-warning">Kembali</a>
+					<br><br>
+					<p ng-show="is_saving"><i class="fa fa-spinner fa-pulse fa-2x"></i> Loading...</p>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
