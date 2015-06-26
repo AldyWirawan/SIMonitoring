@@ -76,6 +76,27 @@ app.controller('ProyekCtrl', function($scope, ProyekSvc, UUKSvc){
 			$scope.UUKs = res;
 		});
 	}
+	$scope.simpan_UUK = function(){
+		$scope.is_saving = true;
+		var req = UUKSvc.create($scope.temp_UUK);
+		req.success(function(res){
+			$scope.is_saving = false;
+			alert("UUK "+res.status);
+		});
+		$location.path('/UUK');
+	}
+	$scope.simpan_proyek = function(){
+		$scope.is_saving = true;
+		var req = ProyekSvc.create($scope.temp_proyek);
+		req.success(function(res){
+			$scope.is_saving = false;
+			alert("Proyek "+res.status);
+		});
+		$location.path('/Proyek');
+	}
+
+	$scope.get_proyeks();
+	$scope.get_UUKs();
 })
 
 app.controller('UUKCtrl', function($scope, UUKSvc){
@@ -85,8 +106,8 @@ app.controller('UUKCtrl', function($scope, UUKSvc){
 		req.success(function(res){
 			$scope.is_saving = false;
 			alert("UUK "+res.status);
-			$location.path('/UUK');
 		});
+		$location.path('/UUK');
 	}
 })
 

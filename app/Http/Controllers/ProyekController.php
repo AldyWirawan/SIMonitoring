@@ -31,7 +31,7 @@ class ProyekController extends Controller {
 	{
 		$new = new Proyek();
 		$new->id_uuk = $req->input('id_uuk');
-		$new->nama_uuk = UUK::find(input('id_uuk'))->nama_uuk;
+		$new->nama_uuk = UUK::find($new->id_uuk)->nama_uuk;
 		$new->pin = $req->input('pin');
 		$new->tanggal_catat = $req->input('tanggal_catat');
 		$new->nama_pekerjaan = $req->input('nama_pekerjaan');
@@ -46,7 +46,7 @@ class ProyekController extends Controller {
 		$new->kontrak_nilai_rupiah = $req->input('kontrak_nilai_rupiah');
 		$new->kontrak_nilai_total = $req->input('kontrak_nilai_total');
 		$new->keuangan_invoice_total = $req->input('keuangan_invoice_total');
-		$new->sisa_invoice_total = $req->input('sisa_invoice_total');
+		$new->keuangan_sisa_invoice_total = $req->input('keuangan_sisa_invoice_total');
 		$new->keuangan_usulan_penghapusan_proyek = $req->input('keuangan_usulan_penghapusan_proyek');
 		$new->keuangan_total_realisasi = $req->input('keuangan_total_realisasi');
 		$new->keuangan_pre_financing = $req->input('keuangan_pre_financing');
@@ -129,7 +129,7 @@ class ProyekController extends Controller {
 			$edit->kontrak_nilai_rupiah = $req->input('kontrak_nilai_rupiah');
 			$edit->kontrak_nilai_total = $req->input('kontrak_nilai_total');
 			$edit->keuangan_invoice_total = $req->input('keuangan_invoice_total');
-			$edit->sisa_invoice_total = $req->input('sisa_invoice_total');
+			$edit->keuangan_sisa_invoice_total = $req->input('keuangan_sisa_invoice_total');
 			$edit->keuangan_usulan_penghapusan_proyek = $req->input('keuangan_usulan_penghapusan_proyek');
 			$edit->keuangan_total_realisasi = $req->input('keuangan_total_realisasi');
 			$edit->keuangan_pre_financing = $req->input('keuangan_pre_financing');
