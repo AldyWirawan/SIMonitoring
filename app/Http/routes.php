@@ -19,7 +19,7 @@ Route::get('simon', function () {
     return view('index_simon');
 });
 
-Route::post('proyek/dataTableAll', 'ProyekController@dataTableAll');
+Route::get('proyek/dataTableAll', 'ProyekController@dataTableAll');
 
 Route::resource('proyekDashboard', 'ProyekDashboardController');
 

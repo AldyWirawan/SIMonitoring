@@ -29,6 +29,31 @@ app.factory("ProyekSvc", function($http){
 	}
 })
 
+app.factory("UUKSvc", function($http){
+	return{
+		all: function(){
+			var req = $http({method:'GET', url:'UUK'});
+			return req;
+		},
+		create: function(data){
+			var req = $http({method:'GET', url:'UUK/create', params:data});
+			return req;
+		},
+		get: function(id){
+			var req = $http.get('UUK/'+id);
+			return req;
+		},
+		update: function(id, data){
+			var req = $http.put('UUK/'+id, data);
+			return req;
+		},
+		delete: function(id){
+			var req = $http.delete('UUK/'+id);
+			return req;
+		}
+	}
+})
+
 app.factory("ProyekDashboardSvc", function($http){
 	return{
 		all: function(){
@@ -38,8 +63,19 @@ app.factory("ProyekDashboardSvc", function($http){
 	}
 })
 
-app.controller('ProyekCtrl', function($scope, ProyekSvc){
-	
+app.controller('ProyekCtrl', function($scope, ProyekSvc, UUKSvc){
+	$scope.get_proyeks = function(){
+		var req = ProyekSvc.all();
+		req.success(function(res){
+			$scope.proyeks = res;
+		});
+	}
+	$scope.get_UUKs = function(){
+		var req = UUKSvc.all();
+		req.success(function(res){
+			$scope.UUKs = res;
+		});
+	}
 })
 
 app.controller('DashboardCtrl', function($scope, ProyekDashboardSvc){
@@ -64,6 +100,10 @@ app.config(function($routeProvider, $locationProvider){
 	});
 	$routeProvider.when('/lappro',{
 		templateUrl:'aset/simon/pages/lappro.html'
+	});
+	$routeProvider.when('/tambah_proyek', {
+		templateUrl:'aset/simon/pages/tambah_proyek.html',
+		controller:'ProyekCtrl'
 	});
 });
 

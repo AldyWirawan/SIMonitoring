@@ -17,6 +17,7 @@ class CreateTabelProyek extends Migration {
 			$table->increments('id');
 			$table->integer('id_uuk')->unsigned();
 			$table->foreign('id_uuk')->references('id')->on('UUK');
+			$table->string('nama_uuk');
 			$table->string('pin');
 			$table->date('tanggal_catat');
 			$table->string('nama_pekerjaan');

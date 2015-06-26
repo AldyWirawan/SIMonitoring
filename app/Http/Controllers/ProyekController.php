@@ -7,6 +7,8 @@ use App\UUK;
 
 use Illuminate\Http\Request;
 
+use Datatables;
+
 class ProyekController extends Controller {
 
 	/**
@@ -29,6 +31,7 @@ class ProyekController extends Controller {
 	{
 		$new = new Proyek();
 		$new->id_uuk = $req->input('id_uuk');
+		$new->nama_uuk = UUK::find(input('id_uuk'))->nama_uuk;
 		$new->pin = $req->input('pin');
 		$new->tanggal_catat = $req->input('tanggal_catat');
 		$new->nama_pekerjaan = $req->input('nama_pekerjaan');
@@ -111,6 +114,7 @@ class ProyekController extends Controller {
 		$edit = Proyek::find($id);
 		if($edit){
 			$edit->id_uuk = $req->input('id_uuk');
+			$edit->nama_uuk = UUK::find(input('id_uuk'))->nama_uuk;
 			$edit->pin = $req->input('pin');
 			$edit->tanggal_catat = $req->input('tanggal_catat');
 			$edit->nama_pekerjaan = $req->input('nama_pekerjaan');
@@ -170,58 +174,11 @@ class ProyekController extends Controller {
 		return array('status'=>'Not Deleted!');
 	}
 
-	public function dataTableAll(){
+	public function dataTableAll()
+	{
 
-		// ambil data kiriman view
-		$iDisplayStart = Input::get('iDisplayStart');
-		$iDisplayLength = Input::get('iDisplayLength');
-		$sEcho = Input::get('sEcho');
-		$iSortCol_0 = Input::get('iSortCol_0');
-		$sSortDir_0 = Input::get('sSortDir_0');
-		$sSearch = Input::get('sSearch');
-
-		// set proyek yang ditampilkan, berdasarkan parameter yang diberikan data table
-		$proyeks = Proyek::skip($iDisplayStart)->take($iDisplayLength)->get();
-
-		// bentuk hasil menjadi sebuah array dengan ketentuan data table
-		$return = array();
-		$return['sEcho'] = intval($sEcho);
-		$return['iTotalRecords'] = Proyek::count();
-		$return['iTotalDisplayRecords'] = $return['iTotalRecords'];
-
-		$hasil = array();
-		foreach ($proyeks as $proyek) {
-			$data = array();
-			
-			//nambah URL jika sudah ada page untuk masing-masing proyek
-			//$url = url('profile/'.$pegawai->peg_id);
-			//$data[] = '<a href="'.$url.'">'.Pegawai::find($pegawai->peg_id)->peg_nama;
-
-			$data[] = $proyek->id;
-			$data[] = UUK::find($proyek->id_uuk)->nama_uuk;
-			$data[] = $proyek->pin;
-			$data[] = $proyek->tanggal_catat;
-			$data[] = $proyek->nama_pekerjaan;
-			$data[] = $proyek->nama_pemberi_kerja;
-			$data[] = $proyek->nama_ketua_pelaksana;
-			$data[] = $proyek->kontrak_tanggal;
-			$data[] = $proyek->kontrak_nomor;
-			$data[] = $proyek->kontrak_akhir_periode;
-			$data[] = $proyek->kontrak_nilai_total;
-			$data[] = $proyek->keuangan_invoice_total;
-			$data[] = $proyek->keuangan_sisa_invoice_total;
-			$data[] = $proyek->keuangan_usulan_penghapusan_proyek;
-			$data[] = $proyek->keuangan_total_realisasi;
-			$data[] = $proyek->keuangan_pre_financing;
-			$data[] = $proyek->status_pekerjaan;
-			$data[] = $proyek->persentase_progres_proyek;
-
-			array_push($hasil,$data);
-		}
-
-		$return['aaData'] = $hasil;
-		// jadikan format json, kirim kembali ke view
-		echo json_encode($return);
+		$proyeks = Proyek::select(['nama_uuk', 'pin', 'tanggal_catat', 'nama_pekerjaan', 'nama_pemberi_kerja', 'nama_ketua_pelaksana', 'kontrak_tanggal', 'kontrak_nomor', 'kontrak_akhir_periode', 'kontrak_nilai_total', 'keuangan_invoice_total', 'keuangan_sisa_invoice_total', 'keuangan_usulan_penghapusan_proyek', 'keuangan_total_realisasi', 'keuangan_pre_financing', 'status_pekerjaan', 'persentase_progres_proyek']);
+        return Datatables::of($proyeks)->make();
 	}
 
 }

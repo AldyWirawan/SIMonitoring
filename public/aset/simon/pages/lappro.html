@@ -1,1 +1,45 @@
-INI LAP PROYEK
+<div class="row">
+	<div class="col-md-12">
+		<h1 class="text-center" style="margin-bottom: 40px">Laporan Proyek</h1>
+
+		<a href="#/tambah_proyek" class="btn btn-primary pull-right">Tambah Proyek</a>
+		<br><br>
+		<div class="table-responsive">
+			<table id="proyek" class="table table-condensed table-bordered table-striped">
+				<thead>
+					<tr>
+						<th>UUK</th>
+						<th>PIN</th>
+						<th>Tanggal Catat</th>
+						<th>Nama Pekerjaan</th>
+						<th>Nama Pemberi Kerja</th>
+						<th>Nama Ketua Pelaksana</th>
+						<th>Tanggal Kontrak</th>
+						<th>Nomor Kontrak</th>
+						<th>Akhir Periode Kontrak</th>
+						<th>Nilai Total Kontrak</th>
+						<th>Invoice</th>
+						<th>Sisa Invoice</th>
+						<th>Usulan Penghapusan Proyek</th>
+						<th>Total Realisasi</th>
+						<th>Pre-Financing</th>
+						<th>Status Pekerjaan</th>
+						<th>Persentase Proyek</th>
+					</tr>
+				</thead>
+			</table>
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+	$(document).ready(function() {
+
+		$('#proyek').DataTable( {
+			serverSide: true,
+			processing: true,
+			ajax: 'proyek/dataTableAll'
+		});
+		
+	})
+</script>

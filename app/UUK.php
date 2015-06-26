@@ -4,6 +4,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class UUK extends Model {
 
+	public $timestamps = false;
 	protected $table = 'UUK';
 
 }
