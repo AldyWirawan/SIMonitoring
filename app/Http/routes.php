@@ -20,7 +20,11 @@ Route::get('simon', function () {
 });
 
 Route::get('proyek/dataTableAll', 'ProyekController@dataTableAll');
+Route::post('proyek/import_excel', 'ProyekController@import_excel');
+Route::get('proyek/download_template', 'ProyekController@download_template');
+
 Route::get('uuk/dataTableAll', 'UUKController@dataTableAll');
+
 
 Route::resource('proyekDashboard', 'ProyekDashboardController');
 Route::resource('proyek', 'ProyekController');

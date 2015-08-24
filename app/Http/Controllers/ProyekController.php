@@ -174,10 +174,80 @@ class ProyekController extends Controller {
 		return array('status'=>'Not Deleted!');
 	}
 
+	    public function getAddEditRemoveColumn()
+    {
+        return view('datatables.fluent.add-edit-remove-column');
+    }
+
 	public function dataTableAll()
 	{
-		$proyeks = Proyek::select(['nama_uuk', 'pin', 'tanggal_catat', 'nama_pekerjaan', 'nama_pemberi_kerja', 'nama_ketua_pelaksana', 'kontrak_tanggal', 'kontrak_nomor', 'kontrak_akhir_periode', 'kontrak_nilai_total', 'keuangan_invoice_total', 'keuangan_sisa_invoice_total', 'keuangan_usulan_penghapusan_proyek', 'keuangan_total_realisasi', 'keuangan_pre_financing', 'status_pekerjaan', 'persentase_progres_proyek']);
-        return Datatables::of($proyeks)->make();
+		$proyeks = Proyek::select(['nama_uuk', 'pin', 'tanggal_catat', 'nama_pekerjaan', 'nama_pemberi_kerja', 'nama_ketua_pelaksana', 'kontrak_tanggal', 'kontrak_nomor', 'kontrak_akhir_periode', 'kontrak_nilai_total', 'keuangan_invoice_total', 'keuangan_sisa_invoice_total', 'keuangan_usulan_penghapusan_proyek', 'keuangan_total_realisasi', 'keuangan_pre_financing', 'status_pekerjaan', 'persentase_progres_proyek'])->get();
+        return Datatables::of($proyeks)
+        	//->addColumn('action', function () {
+            //    return '<a href="#" class="btn btn-xs btn-primary"><i class="glyphicon glyphicon-edit"></i> Edit</a>';
+            //})
+            ->make(true);
+	}
+
+	public function import_excel(Request $req)
+	{
+		$file = $req->file('excel');
+
+		\Excel::load($file, function($reader) {
+			
+			$mentah = $reader->toArray();
+			$siap_proses = $mentah[0];
+			$total = count($siap_proses);
+			$tersimpan = 0;
+			
+			for($i=0; $i<$total; $i++){
+				
+				$new = new Proyek();
+				$row = $siap_proses[$i];
+
+				$new->id_uuk = $row['id_uuk'];
+				$new->nama_uuk = UUK::find($new->id_uuk)->nama_uuk;
+				$new->pin = $row['pin'];
+				$new->tanggal_catat = $row['tanggal_catat'];
+				$new->nama_pekerjaan = $row['nama_pekerjaan'];
+				$new->nama_pemberi_kerja = $row['nama_pemberi_kerja'];
+				$new->nama_ketua_pelaksana = $row['nama_ketua_pelaksana'];
+				$new->kontrak_tanggal = $row['kontrak_tanggal'];
+				$new->kontrak_nomor = $row['kontrak_nomor'];
+				$new->kontrak_akhir_periode = $row['kontrak_akhir_periode'];
+				$new->kontrak_nilai_euro = $row['kontrak_nilai_euro'];
+				$new->kontrak_nilai_jpy = $row['kontrak_nilai_jpy'];
+				$new->kontrak_nilai_dollar = $row['kontrak_nilai_dollar'];
+				$new->kontrak_nilai_rupiah = $row['kontrak_nilai_rupiah'];
+				$new->kontrak_nilai_total = $row['kontrak_nilai_total'];
+				$new->keuangan_invoice_total = $row['keuangan_invoice_total'];
+				$new->keuangan_sisa_invoice_total = $row['keuangan_sisa_invoice_total'];
+				$new->keuangan_usulan_penghapusan_proyek = $row['keuangan_usulan_penghapusan_proyek'];
+				$new->keuangan_total_realisasi = $row['keuangan_total_realisasi'];
+				$new->keuangan_pre_financing = $row['keuangan_pre_financing'];
+				$new->status_pekerjaan = $row['status_pekerjaan'];
+				$new->persentase_progres_bulan_1 = $row['persentase_progres_bulan_1'];
+				$new->persentase_progres_bulan_2 = $row['persentase_progres_bulan_2'];
+				$new->persentase_progres_bulan_3 = $row['persentase_progres_bulan_3'];
+				$new->persentase_progres_bulan_4 = $row['persentase_progres_bulan_4'];
+				$new->persentase_progres_bulan_5 = $row['persentase_progres_bulan_5'];
+				$new->persentase_progres_bulan_6 = $row['persentase_progres_bulan_6'];
+				$new->persentase_progres_bulan_7 = $row['persentase_progres_bulan_7'];
+				$new->persentase_progres_bulan_8 = $row['persentase_progres_bulan_8'];
+				$new->persentase_progres_bulan_9 = $row['persentase_progres_bulan_9'];
+				$new->persentase_progres_bulan_10 = $row['persentase_progres_bulan_10'];
+				$new->persentase_progres_bulan_11 = $row['persentase_progres_bulan_11'];
+				$new->persentase_progres_bulan_12 = $row['persentase_progres_bulan_12'];
+				$new->persentase_progres_proyek = $row['persentase_progres_proyek'];
+			}
+		});
+
+		return redirect('../public/#/lappro');
+	}
+
+	public function download_template(){
+		$file= public_path()."/aset/template/template_proyek.xlsx";
+		return response()->download($file, "Template Proyek.xlsx");
 	}
 
 }

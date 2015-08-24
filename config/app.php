@@ -147,7 +147,7 @@ return [
 		/* addition */
 		'Barryvdh\Debugbar\ServiceProvider',
 		'yajra\Datatables\DatatablesServiceProvider',
-
+		'Maatwebsite\Excel\ExcelServiceProvider',
 	],
 
 	/*
@@ -197,6 +197,7 @@ return [
 		'View'      => 'Illuminate\Support\Facades\View',
 		'Debugbar' 	=> 'Barryvdh\Debugbar\Facade',
 		'Datatables' => 'yajra\Datatables\Datatables',
+		'Excel' 	=> 'Maatwebsite\Excel\Facades\Excel',
 
 	],
 

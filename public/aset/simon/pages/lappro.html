@@ -29,6 +29,18 @@
 				</thead>
 			</table>
 		</div>
+
+		<div class="row" style="margin-top: 30px">
+			<div class="col-md-3 well">
+				<form action="proyek/import_excel" method="post" enctype="multipart/form-data">
+					<label class="control-label">Upload Ms. Excel</label>
+					<input type="file" class="form-control" name="excel">
+					<br>
+					<input type="submit" value="Import" class="btn btn-primary">
+					<a href="proyek/download_template" class="btn btn-danger">Download Template</a>
+				</form>
+			</div>
+		</div>
 	</div>
 </div>
 
@@ -38,7 +50,28 @@
 		$('#proyek').DataTable( {
 			serverSide: true,
 			processing: true,
-			ajax: 'proyek/dataTableAll'
+			ajax: 'proyek/dataTableAll',
+			columns: [
+	            {data: 'nama_uuk', name: 'nama_uuk'},
+	            {data: 'pin', name: 'pin'},
+	            {data: 'tanggal_catat', name: 'tanggal_catat'},
+	            {data: 'nama_pekerjaan', name: 'nama_pekerjaan'},
+	            {data: 'nama_pemberi_kerja', name: 'nama_pemberi_kerja'},
+	            {data: 'nama_ketua_pelaksana', name: 'nama_ketua_pelaksana'},
+	            {data: 'kontrak_tanggal', name: 'kontrak_tanggal'},
+	            {data: 'kontrak_nomor', name: 'kontrak_nomor'},
+	            {data: 'kontrak_akhir_periode', name: 'kontrak_akhir_periode'},
+	            {data: 'kontrak_nilai_total', name: 'kontrak_nilai_total'},
+	            {data: 'keuangan_invoice_total', name: 'keuangan_invoice_total'},
+	            {data: 'keuangan_sisa_invoice_total', name: 'keuangan_sisa_invoice_total'},
+	            {data: 'keuangan_usulan_penghapusan_proyek', name: 'keuangan_usulan_penghapusan_proyek'},
+	            {data: 'keuangan_total_realisasi', name: 'keuangan_total_realisasi'},
+	            {data: 'keuangan_pre_financing', name: 'keuangan_pre_financing'},
+	            {data: 'status_pekerjaan', name: 'status_pekerjaan'},
+	            {data: 'persentase_progres_proyek', name: 'persentase_progres_proyek'},
+	            //{data: 'action', name: 'action', orderable: false, searchable: false}
+        	],
+        	select: true
 		});
 		
 	})

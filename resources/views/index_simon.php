@@ -4,16 +4,51 @@
 <head>
 	<title>BPUDL</title>
 
+	<!-- css bootstrap -->
 	<link rel="stylesheet" type="text/css" href="aset/css/my-style.css">
 	<link rel="stylesheet" type="text/css" href="aset/bootstrap/css/bootstrap.min.css">
 
+	<!-- css datatables -->
+	<link rel="stylesheet" type="text/css" href="aset/css/jquery.dataTables.css">
+	<link rel="stylesheet" type="text/css" href="aset/css/jquery.dataTables.min.css">
+	<link rel="stylesheet" type="text/css" href="aset/css/jquery.dataTables_themeroller.css">
+	<link rel="stylesheet" type="text/css" href="aset/css/select.dataTables.min.css">
+	<link rel="stylesheet" type="text/css" href="aset/css/buttons.dataTables.min.css">
+
+	<!-- css editor -->
+	<!--
+	<link rel="stylesheet" type="text/css" href="aset/css/editor.bootstrap.css">
+	<link rel="stylesheet" type="text/css" href="aset/css/editor.bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="aset/css/editor.dataTables.css">
+	<link rel="stylesheet" type="text/css" href="aset/css/editor.dataTables.min.css">
+	<link rel="stylesheet" type="text/css" href="aset/css/editor.foundation.css">
+	<link rel="stylesheet" type="text/css" href="aset/css/editor.foundation.min.css">
+	<link rel="stylesheet" type="text/css" href="aset/css/editor.jqueryui.css">
+	<link rel="stylesheet" type="text/css" href="aset/css/editor.jqueryui.min.css">
+	-->
+
+	<!-- js bootstrap + angular -->
 	<script src="aset/js/jquery-2.1.3.min.js"></script>
 	<script src="aset/bootstrap/js/bootstrap.min.js"></script>
 	<script src="aset/js/angular.js"></script>
 	<script src="aset/js/angular-route.js"></script>
+	
+	<!-- js highcharts + datatables -->
 	<script src="aset/js/highcharts.js"></script>
 	<script src="aset/js/jquery.dataTables.js"></script>
 	<script src="aset/js/jquery.dataTables.min.js"></script>
+	<script src="aset/js/dataTables.select.min.js"></script>
+	<script src="aset/js/dataTables.buttons.min.js"></script>
+
+	<!-- js editor -->
+	<!--
+	<script src="aset/js/editor.bootstrap.js"></script>
+	<script src="aset/js/editor.bootstrap.min.js"></script>
+	<script src="aset/js/editor.foundation.js"></script>
+	<script src="aset/js/editor.foundation.min.js"></script>
+	<script src="aset/js/editor.jqueryui.js"></script>
+	<script src="aset/js/editor.jqueryui.min.js"></script>
+	-->
 
 	<script src="aset/app_simon.js"></script>
 

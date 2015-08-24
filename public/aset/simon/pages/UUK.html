@@ -21,12 +21,15 @@
 </div>
 
 <script type="text/javascript">
+
+	var editor; // use a global for the submit and return data rendering in the examples
+
 	$(document).ready(function() {
 
 		$('#uuk').DataTable( {
 			serverSide: true,
 			processing: true,
-			ajax: 'uuk/dataTableAll'
+			ajax: 'uuk/dataTableAll',
 		});
 		
 	})

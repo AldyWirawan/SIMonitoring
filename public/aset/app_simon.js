@@ -63,6 +63,17 @@ app.factory("ProyekDashboardSvc", function($http){
 	}
 })
 
+/*
+app.factory("UploadSvc", function($http){
+	return{
+		all: function(){
+			var req = $http({method:'GET', url:'proyek/upload'});
+			return req;
+		}
+	}
+})
+*/
+
 app.controller('ProyekCtrl', function($scope, ProyekSvc, UUKSvc){
 	$scope.get_proyeks = function(){
 		var req = ProyekSvc.all();
@@ -118,6 +129,17 @@ app.controller('DashboardCtrl', function($scope, ProyekDashboardSvc){
 	});
 })
 
+/*
+app.controller('UploadCtrl'), function($scope, UploadSvc){
+	var getFile = UploadSvc.all();
+	getFile.success(function(response){
+		$scope.file = response;
+	})
+
+	$scope.getFile();
+}
+*/
+
 app.controller('NavController', function($scope){
 	$scope.halaman = "beranda";
 });
@@ -134,6 +156,11 @@ app.config(function($routeProvider, $locationProvider){
 	$routeProvider.when('/lappro',{
 		templateUrl:'aset/simon/pages/lappro.html'
 	});
+	/*
+	$routeProvider.when('/lappro/upload',{
+		controller:'UploadCtrl'
+	});
+	*/
 	$routeProvider.when('/tambah_proyek', {
 		templateUrl:'aset/simon/pages/tambah_proyek.html',
 		controller:'ProyekCtrl'
