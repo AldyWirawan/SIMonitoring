@@ -203,9 +203,10 @@ class ProyekController extends Controller {
 				
 				$new = new Proyek();
 				$row = $siap_proses[$i];
-
-				$new->id_uuk = $row['id_uuk'];
-				$new->nama_uuk = UUK::find($new->id_uuk)->nama_uuk;
+				
+				$UUK = UUK::where('nama_uuk', $row['nama_uuk'])->first();
+				$new->id_uuk = $UUK->id;
+				$new->nama_uuk = $row['nama_uuk'];
 				$new->pin = $row['pin'];
 				$new->tanggal_catat = $row['tanggal_catat'];
 				$new->nama_pekerjaan = $row['nama_pekerjaan'];
@@ -237,7 +238,7 @@ class ProyekController extends Controller {
 				$new->persentase_progres_bulan_10 = $row['persentase_progres_bulan_10'];
 				$new->persentase_progres_bulan_11 = $row['persentase_progres_bulan_11'];
 				$new->persentase_progres_bulan_12 = $row['persentase_progres_bulan_12'];
-				$new->persentase_progres_proyek = $row['persentase_progres_proyek'];
+				$new->persentase_progres_proyek = max($new->persentase_progres_bulan_1, $new->persentase_progres_bulan_2, $new->persentase_progres_bulan_3, $new->persentase_progres_bulan_4, $new->persentase_progres_bulan_5, $new->persentase_progres_bulan_6, $new->persentase_progres_bulan_7, $new->persentase_progres_bulan_8, $new->persentase_progres_bulan_9, $new->persentase_progres_bulan_10, $new->persentase_progres_bulan_11, $new->persentase_progres_bulan_12);
 
 				$new->save();
 			}
