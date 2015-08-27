@@ -25,7 +25,6 @@ Route::get('proyek/download_template', 'ProyekController@download_template');
 
 Route::get('uuk/dataTableAll', 'UUKController@dataTableAll');
 
-
 Route::resource('proyekDashboard', 'ProyekDashboardController');
 Route::resource('proyek', 'ProyekController');
 Route::resource('uuk', 'UUKController');

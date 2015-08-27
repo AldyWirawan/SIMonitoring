@@ -785,23 +785,23 @@
         },
         {
             "name": "maatwebsite/excel",
-            "version": "v2.0.6",
+            "version": "2.0.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Maatwebsite/Laravel-Excel.git",
-                "reference": "52bcd0873decff570e965dfc4d7351ff956b700f"
+                "reference": "8657c9ae76fe95a9e7b936fa20eaa953de751347"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Maatwebsite/Laravel-Excel/zipball/52bcd0873decff570e965dfc4d7351ff956b700f",
-                "reference": "52bcd0873decff570e965dfc4d7351ff956b700f",
+                "url": "https://api.github.com/repos/Maatwebsite/Laravel-Excel/zipball/8657c9ae76fe95a9e7b936fa20eaa953de751347",
+                "reference": "8657c9ae76fe95a9e7b936fa20eaa953de751347",
                 "shasum": ""
             },
             "require": {
-                "illuminate/cache": "~5.0",
-                "illuminate/config": "~5.0",
-                "illuminate/filesystem": "~5.0",
-                "illuminate/support": "~5.0",
+                "illuminate/cache": "~5.0|~5.1",
+                "illuminate/config": "~5.0|~5.1",
+                "illuminate/filesystem": "~5.0|~5.1",
+                "illuminate/support": "~5.0|~5.1",
                 "nesbot/carbon": "~1.0",
                 "php": ">=5.3.0",
                 "phpoffice/phpexcel": "~1.8.0",
@@ -814,9 +814,9 @@
                 "phpunit/phpunit": "~4.0"
             },
             "suggest": {
-                "illuminate/http": "~5.0",
-                "illuminate/routing": "~5.0",
-                "illuminate/view": "~5.0"
+                "illuminate/http": "~5.0|~5.1",
+                "illuminate/routing": "~5.0|~5.1",
+                "illuminate/view": "~5.0|~5.1"
             },
             "type": "library",
             "autoload": {
@@ -848,7 +848,7 @@
                 "import",
                 "laravel"
             ],
-            "time": "2015-06-04 15:32:17"
+            "time": "2015-08-20 15:23:00"
         },
         {
             "name": "maximebf/debugbar",
@@ -2195,16 +2195,16 @@
         },
         {
             "name": "yajra/laravel-datatables-oracle",
-            "version": "v5.11.1",
+            "version": "v5.11.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/yajra/laravel-datatables.git",
-                "reference": "938edc2d0c98500616f4592edbc4e94c18af79ef"
+                "reference": "856170512fdda5b8fc66d45ce7921d19f479a11c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yajra/laravel-datatables/zipball/938edc2d0c98500616f4592edbc4e94c18af79ef",
-                "reference": "938edc2d0c98500616f4592edbc4e94c18af79ef",
+                "url": "https://api.github.com/repos/yajra/laravel-datatables/zipball/856170512fdda5b8fc66d45ce7921d19f479a11c",
+                "reference": "856170512fdda5b8fc66d45ce7921d19f479a11c",
                 "shasum": ""
             },
             "require": {
@@ -2246,7 +2246,7 @@
                 "laravel4",
                 "laravel5"
             ],
-            "time": "2015-08-15 03:09:41"
+            "time": "2015-08-26 12:59:20"
         }
     ],
     "packages-dev": [
@@ -2767,16 +2767,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "4.8.5",
+            "version": "4.8.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "9b7417edaf28059ea63d86be941e6004dbfcc0cc"
+                "reference": "2246830f4a1a551c67933e4171bf2126dc29d357"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/9b7417edaf28059ea63d86be941e6004dbfcc0cc",
-                "reference": "9b7417edaf28059ea63d86be941e6004dbfcc0cc",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/2246830f4a1a551c67933e4171bf2126dc29d357",
+                "reference": "2246830f4a1a551c67933e4171bf2126dc29d357",
                 "shasum": ""
             },
             "require": {
@@ -2835,7 +2835,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2015-08-19 09:20:57"
+            "time": "2015-08-24 04:09:38"
         },
         {
             "name": "phpunit/phpunit-mock-objects",

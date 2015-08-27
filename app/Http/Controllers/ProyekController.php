@@ -198,7 +198,6 @@ class ProyekController extends Controller {
 			$mentah = $reader->toArray();
 			$siap_proses = $mentah[0];
 			$total = count($siap_proses);
-			$tersimpan = 0;
 			
 			for($i=0; $i<$total; $i++){
 				
@@ -239,6 +238,8 @@ class ProyekController extends Controller {
 				$new->persentase_progres_bulan_11 = $row['persentase_progres_bulan_11'];
 				$new->persentase_progres_bulan_12 = $row['persentase_progres_bulan_12'];
 				$new->persentase_progres_proyek = $row['persentase_progres_proyek'];
+
+				$new->save();
 			}
 		});
 
