@@ -63,7 +63,7 @@ class ProyekController extends Controller {
 		$new->persentase_progres_bulan_10 = $req->input('persentase_progres_bulan_10');
 		$new->persentase_progres_bulan_11 = $req->input('persentase_progres_bulan_11');
 		$new->persentase_progres_bulan_12 = $req->input('persentase_progres_bulan_12');
-		$new->persentase_progres_proyek = $req->input('persentase_progres_proyek');
+		$new->persentase_progres_proyek = max($new->persentase_progres_bulan_1, $new->persentase_progres_bulan_2, $new->persentase_progres_bulan_3, $new->persentase_progres_bulan_4, $new->persentase_progres_bulan_5, $new->persentase_progres_bulan_6, $new->persentase_progres_bulan_7, $new->persentase_progres_bulan_8, $new->persentase_progres_bulan_9, $new->persentase_progres_bulan_10, $new->persentase_progres_bulan_11, $new->persentase_progres_bulan_12);
 		
 		if($new->save()){
 			return array('status'=>'Saved!');
@@ -146,7 +146,7 @@ class ProyekController extends Controller {
 			$edit->persentase_progres_bulan_10 = $req->input('persentase_progres_bulan_10');
 			$edit->persentase_progres_bulan_11 = $req->input('persentase_progres_bulan_11');
 			$edit->persentase_progres_bulan_12 = $req->input('persentase_progres_bulan_12');
-			$edit->persentase_progres_proyek = $req->input('persentase_progres_proyek');
+			$edit->persentase_progres_proyek = max($edit->persentase_progres_bulan_1, $edit->persentase_progres_bulan_2, $edit->persentase_progres_bulan_3, $edit->persentase_progres_bulan_4, $edit->persentase_progres_bulan_5, $edit->persentase_progres_bulan_6, $edit->persentase_progres_bulan_7, $edit->persentase_progres_bulan_8, $edit->persentase_progres_bulan_9, $edit->persentase_progres_bulan_10, $edit->persentase_progres_bulan_11, $edit->persentase_progres_bulan_12);
 
 			if($edit->save()){
 				return array('status'=>'Saved!');
