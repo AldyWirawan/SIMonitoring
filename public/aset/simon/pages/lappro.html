@@ -2,6 +2,7 @@
 	<div class="col-md-12">
 		<h1 class="text-center" style="margin-bottom: 40px">Laporan Proyek</h1>
 
+		<a id="delete" class="btn btn-danger pull-left">Delete</a>
 		<a href="#/tambah_proyek" class="btn btn-primary pull-right">Tambah Proyek</a>
 		<br><br>
 		<div class="table-responsive">
@@ -47,7 +48,7 @@
 <script type="text/javascript">
 	$(document).ready(function() {
 
-		$('#proyek').DataTable( {
+		var table = $('#proyek').DataTable( {
 			serverSide: true,
 			processing: true,
 			ajax: 'proyek/dataTableAll',
@@ -70,9 +71,22 @@
 	            {data: 'status_pekerjaan', name: 'status_pekerjaan'},
 	            {data: 'persentase_progres_proyek', name: 'persentase_progres_proyek'},
 	            //{data: 'action', name: 'action', orderable: false, searchable: false}
-        	],
-        	select: true
+        	]
 		});
+
+		$('#proyek tbody').on( 'click', 'tr', function () {
+        if ( $(this).hasClass('selected') ) {
+            $(this).removeClass('selected');
+        }
+        else {
+            table.$('tr.selected').removeClass('selected');
+            $(this).addClass('selected');
+        }
+    	} );
+
+		$('#delete').click( function () {
+			table.row('.selected').remove().draw( false );
+		})
 		
 	})
 </script>

@@ -9,11 +9,7 @@
 	<link rel="stylesheet" type="text/css" href="aset/bootstrap/css/bootstrap.min.css">
 
 	<!-- css datatables -->
-	<link rel="stylesheet" type="text/css" href="aset/css/jquery.dataTables.css">
-	<link rel="stylesheet" type="text/css" href="aset/css/jquery.dataTables.min.css">
-	<link rel="stylesheet" type="text/css" href="aset/css/jquery.dataTables_themeroller.css">
-	<link rel="stylesheet" type="text/css" href="aset/css/select.dataTables.min.css">
-	<link rel="stylesheet" type="text/css" href="aset/css/buttons.dataTables.min.css">
+	<link rel="stylesheet" type="text/css" href="aset/css/dataTables.min.css"/>
 
 	<!-- css editor -->
 	<!--
@@ -35,10 +31,7 @@
 	
 	<!-- js highcharts + datatables -->
 	<script src="aset/js/highcharts.js"></script>
-	<script src="aset/js/jquery.dataTables.js"></script>
-	<script src="aset/js/jquery.dataTables.min.js"></script>
-	<script src="aset/js/dataTables.select.min.js"></script>
-	<script src="aset/js/dataTables.buttons.min.js"></script>
+	<script type="text/javascript" src="aset/js/dataTables.min.js"></script>
 
 	<!-- js editor -->
 	<!--
