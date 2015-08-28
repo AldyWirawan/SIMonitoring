@@ -9,6 +9,7 @@
 			<table id="proyek" class="table table-condensed table-bordered table-striped">
 				<thead>
 					<tr>
+						<th>ID</th>
 						<th>UUK</th>
 						<th>PIN</th>
 						<th>Tanggal Catat</th>
@@ -53,6 +54,7 @@
 			processing: true,
 			ajax: 'proyek/dataTableAll',
 			columns: [
+				{data: 'id', name: 'id'},
 	            {data: 'nama_uuk', name: 'nama_uuk'},
 	            {data: 'pin', name: 'pin'},
 	            {data: 'tanggal_catat', name: 'tanggal_catat'},
@@ -71,6 +73,13 @@
 	            {data: 'status_pekerjaan', name: 'status_pekerjaan'},
 	            {data: 'persentase_progres_proyek', name: 'persentase_progres_proyek'},
 	            //{data: 'action', name: 'action', orderable: false, searchable: false}
+        	],
+        	columnDefs: [
+        		{
+        			targets:[ 0 ],
+        			visible: false,
+        			searchable: false,
+        		}
         	]
 		});
 
@@ -85,7 +94,15 @@
     	} );
 
 		$('#delete').click( function () {
-			table.row('.selected').remove().draw( false );
+			// table.row('.selected').data().id
+			//table.row('.selected').remove().draw( false );
+			$.ajax({
+           		type: "DELETE",
+           		url: "proyek/"+table.row('.selected').data().id,
+           		success: function(){
+                	table.row('.selected').remove().draw( false );
+           		}
+        	});
 		})
 		
 	})

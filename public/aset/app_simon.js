@@ -105,6 +105,13 @@ app.controller('ProyekCtrl', function($scope, ProyekSvc, UUKSvc){
 		});
 		$location.path('/Proyek');
 	}
+	$scope.delete_proyek = function(){
+		var req = ProyekSvc.delete($scope.id);
+		req.success(function(res){
+			$scope.is_saving = false;
+			alert("Proyek "+res.status);
+		});
+	}
 
 	$scope.get_proyeks();
 	$scope.get_UUKs();

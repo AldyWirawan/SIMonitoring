@@ -181,7 +181,7 @@ class ProyekController extends Controller {
 
 	public function dataTableAll()
 	{
-		$proyeks = Proyek::select(['nama_uuk', 'pin', 'tanggal_catat', 'nama_pekerjaan', 'nama_pemberi_kerja', 'nama_ketua_pelaksana', 'kontrak_tanggal', 'kontrak_nomor', 'kontrak_akhir_periode', 'kontrak_nilai_total', 'keuangan_invoice_total', 'keuangan_sisa_invoice_total', 'keuangan_usulan_penghapusan_proyek', 'keuangan_total_realisasi', 'keuangan_pre_financing', 'status_pekerjaan', 'persentase_progres_proyek'])->get();
+		$proyeks = Proyek::select(['id', 'nama_uuk', 'pin', 'tanggal_catat', 'nama_pekerjaan', 'nama_pemberi_kerja', 'nama_ketua_pelaksana', 'kontrak_tanggal', 'kontrak_nomor', 'kontrak_akhir_periode', 'kontrak_nilai_total', 'keuangan_invoice_total', 'keuangan_sisa_invoice_total', 'keuangan_usulan_penghapusan_proyek', 'keuangan_total_realisasi', 'keuangan_pre_financing', 'status_pekerjaan', 'persentase_progres_proyek'])->get();
         return Datatables::of($proyeks)
         	//->addColumn('action', function () {
             //    return '<a href="#" class="btn btn-xs btn-primary"><i class="glyphicon glyphicon-edit"></i> Edit</a>';
