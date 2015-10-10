@@ -109,12 +109,12 @@ class ProyekController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function update($id)
+	public function update($id, Request $req)
 	{
 		$edit = Proyek::find($id);
 		if($edit){
 			$edit->id_uuk = $req->input('id_uuk');
-			$edit->nama_uuk = UUK::find(input('id_uuk'))->nama_uuk;
+			$edit->nama_uuk = UUK::find($edit->id_uuk)->nama_uuk;
 			$edit->pin = $req->input('pin');
 			$edit->tanggal_catat = $req->input('tanggal_catat');
 			$edit->nama_pekerjaan = $req->input('nama_pekerjaan');
@@ -151,7 +151,7 @@ class ProyekController extends Controller {
 			if($edit->save()){
 				return array('status'=>'Saved!');
 			}
-			return array('status'=>'Not Saved!');
+			return array('status'=>'Not Saved!'); 
 		}
 		return array('status'=>'Not Saved!');
 	}
@@ -181,7 +181,7 @@ class ProyekController extends Controller {
 
 	public function dataTableAll()
 	{
-		$proyeks = Proyek::select(['id', 'nama_uuk', 'pin', 'tanggal_catat', 'nama_pekerjaan', 'nama_pemberi_kerja', 'nama_ketua_pelaksana', 'kontrak_tanggal', 'kontrak_nomor', 'kontrak_akhir_periode', 'kontrak_nilai_total', 'keuangan_invoice_total', 'keuangan_sisa_invoice_total', 'keuangan_usulan_penghapusan_proyek', 'keuangan_total_realisasi', 'keuangan_pre_financing', 'status_pekerjaan', 'persentase_progres_proyek'])->get();
+		$proyeks = Proyek::select(['id', 'id_uuk', 'nama_uuk', 'pin', 'tanggal_catat', 'nama_pekerjaan', 'nama_pemberi_kerja', 'nama_ketua_pelaksana', 'kontrak_tanggal', 'kontrak_nomor', 'kontrak_akhir_periode', 'kontrak_nilai_total', 'keuangan_invoice_total', 'keuangan_sisa_invoice_total', 'keuangan_usulan_penghapusan_proyek', 'keuangan_total_realisasi', 'keuangan_pre_financing', 'status_pekerjaan', 'persentase_progres_proyek'])->get();
         return Datatables::of($proyeks)
         	//->addColumn('action', function () {
             //    return '<a href="#" class="btn btn-xs btn-primary"><i class="glyphicon glyphicon-edit"></i> Edit</a>';

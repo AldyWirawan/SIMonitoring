@@ -1,8 +1,13 @@
+<style>
+#editForm .modal-dialog  {width:1000px;}
+</style>
+
 <div class="row">
 	<div class="col-md-12">
 		<h1 class="text-center" style="margin-bottom: 40px">Laporan Proyek</h1>
 
-		<a id="delete" class="btn btn-danger pull-left">Delete</a>
+		<a id="edit" class="btn btn-warning pull-left" style="visibility: hidden" data-toggle="modal" data-target="#editForm">Edit</a>
+		<a id="delete" class="btn btn-danger pull-left" style="visibility:hidden; margin-left:10px">Delete</a>
 		<a href="#/tambah_proyek" class="btn btn-primary pull-right">Tambah Proyek</a>
 		<br><br>
 		<div class="table-responsive">
@@ -10,6 +15,7 @@
 				<thead>
 					<tr>
 						<th>ID</th>
+						<th>id_uuk</th>
 						<th>UUK</th>
 						<th>PIN</th>
 						<th>Tanggal Catat</th>
@@ -46,8 +52,307 @@
 	</div>
 </div>
 
+<!-- Modal -->
+<div id="editForm" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Edit Data Proyek</h4>
+      </div>
+      <div class="modal-body row">
+      	<form class="form-horizontal col-md-6">
+
+			<!-- SELECT -->
+			<div ng-show="!new_UUK">
+
+			<div class="form-group">
+				<label class="control-label col-md-2">UUK</label>
+				<div class="col-md-10">
+					<select ng-model="temp_proyek.id_uuk" class="form-control">
+						<option value="">- Pilih UUK -</option>
+						<option ng-repeat="UUK in UUKs" value="{{UUK.id}}">{{UUK.nama_uuk}}</option>
+					</select>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="control-label col-md-2"></label>
+				<div class="col-md-10">
+					<button class="btn btn-primary" ng-click="new_UUK = true">UUK Baru</button>
+				</div>
+			</div>
+
+			</div>
+
+			<div ng-show="new_UUK">
+
+				<div class="form-group">
+					<label class="control-label col-md-2">Nama</label>
+					<div class="col-md-10">
+						<input type="text" ng-model="temp_UUK.nama_uuk" class="form-control" placeholder="Nama">
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-md-2">Waktu Didirikan</label>
+					<div class="col-md-10">
+						<input type="text" ng-model="temp_UUK.waktu_didirikan" class="form-control" placeholder="Waktu Didirikan">
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-md-2">Kepemilikan ITB</label>
+					<div class="col-md-10">
+						<input type="text" ng-model="temp_UUK.kepemilikan_ITB" class="form-control" placeholder="Persentase Kepemilikan ITB">
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-md-2">Penjabat</label>
+					<div class="col-md-10">
+						<input type="text" ng-model="temp_UUK.penjabat" class="form-control" placeholder="Penjabat">
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-md-2">Alamat</label>
+					<div class="col-md-10">
+						<input type="text" ng-model="temp_UUK.alamat" class="form-control" placeholder="Alamat">
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-md-2"></label>
+					<div class="col-md-10">
+						<button ng-click="simpan_UUK()" class="btn btn-success">Simpan</button>
+						<br><br>
+						<p ng-show="is_saving"><i class="fa fa-spinner fa-pulse fa-2x"></i> Loading...</p>
+					</div>
+				</div>
+
+			</div>
+
+		</form>
+
+		<form class="form-horizontal col-md-6">
+
+			<div ng-show="false" class="form-group">
+				<label class="control-label col-md-2"></label>
+				<div class="col-md-10">
+					<input type="text" value="{{temp_proyek.id_uuk}}" class="form-control" readonly>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="control-label col-md-2">PIN</label>
+				<div class="col-md-10">
+					<input type="text" ng-model="temp_proyek.pin" class="form-control" placeholder="PIN">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="control-label col-md-2">Tanggal Catat</label>
+				<div class="col-md-10">
+					<input type="date" ng-model="temp_proyek.tanggal_catat" class="form-control">
+					<span>format: mm/dd/yyyy</span>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="control-label col-md-2">Nama Pekerjaan</label>
+				<div class="col-md-10">
+					<input type="text" ng-model="temp_proyek.nama_pekerjaan" class="form-control" placeholder="Nama Pekerjaan">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="control-label col-md-2">Nama Pemberi Kerja</label>
+				<div class="col-md-10">
+					<input type="text" ng-model="temp_proyek.nama_pemberi_kerja" class="form-control" placeholder="Nama Pemberi Kerja">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="control-label col-md-2">Nama Ketua Pelaksana</label>
+				<div class="col-md-10">
+					<input type="text" ng-model="temp_proyek.nama_ketua_pelaksana" class="form-control" placeholder="Nama Ketua Pelaksana">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="control-label col-md-2">Tanggal Kontrak</label>
+				<div class="col-md-10">
+					<input type="date" ng-model="temp_proyek.kontrak_tanggal" class="form-control">
+					<span>format: mm/dd/yyyy</span>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="control-label col-md-2">Nomor Kontrak</label>
+				<div class="col-md-10">
+					<input type="text" ng-model="temp_proyek.kontrak_nomor" class="form-control" placeholder="Nomor Kontrak">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="control-label col-md-2">Akhir Periode Kontrak</label>
+				<div class="col-md-10">
+					<input type="date" ng-model="temp_proyek.kontrak_akhir_periode" class="form-control">
+					<span>format: mm/dd/yyyy</span>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="control-label col-md-2">Nilai Kontrak (Euro)</label>
+				<div class="col-md-10">
+					<input type="text" ng-model="temp_proyek.kontrak_nilai_euro" class="form-control" placeholder="Euro">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="control-label col-md-2">Nilai Kontrak (JPY)</label>
+				<div class="col-md-10">
+					<input type="text" ng-model="temp_proyek.kontrak_nilai_jpy" class="form-control" placeholder="JPY">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="control-label col-md-2">Nilai Kontrak (USD)</label>
+				<div class="col-md-10">
+					<input type="text" ng-model="temp_proyek.kontrak_nilai_dollar" class="form-control" placeholder="USD">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="control-label col-md-2">Nilai Kontrak (Rupiah)</label>
+				<div class="col-md-10">
+					<input type="text" ng-model="temp_proyek.kontrak_nilai_rupiah" class="form-control" placeholder="Rp.">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="control-label col-md-2">Nilai Kontrak Total</label>
+				<div class="col-md-10">
+					<input type="text" ng-model="temp_proyek.kontrak_nilai_total" class="form-control" placeholder="Rp.">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="control-label col-md-2">Invoice</label>
+				<div class="col-md-10">
+					<input type="text" ng-model="temp_proyek.keuangan_invoice_total" class="form-control" placeholder="Rp.">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="control-label col-md-2">Sisa Invoice</label>
+				<div class="col-md-10">
+					<input type="text" ng-model="temp_proyek.keuangan_sisa_invoice_total" class="form-control" placeholder="Rp.">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="control-label col-md-2">Usulan Penghapusan Proyek</label>
+				<div class="col-md-10">
+					<input type="text" ng-model="temp_proyek.keuangan_usulan_penghapusan_proyek" class="form-control" placeholder="Rp.">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="control-label col-md-2">Total Realisasi</label>
+				<div class="col-md-10">
+					<input type="text" ng-model="temp_proyek.keuangan_total_realisasi" class="form-control" placeholder="Rp.">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="control-label col-md-2">Pre-inancing</label>
+				<div class="col-md-10">
+					<input type="text" ng-model="temp_proyek.keuangan_pre_financing" class="form-control" placeholder="Rp.">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="control-label col-md-2">Status Pekerjaan</label>
+				<div class="col-md-10">
+					<input type="text" ng-model="temp_proyek.status_pekerjaan" class="form-control" placeholder="Keterangan mengenai pekerjaan saat ini">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="control-label col-md-2">Persentase Progres Bulan 1</label>
+				<div class="col-md-10">
+					<input type="text" ng-model="temp_proyek.persentase_progres_bulan_1" class="form-control" placeholder="%">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="control-label col-md-2">Persentase Progres Bulan 2</label>
+				<div class="col-md-10">
+					<input type="text" ng-model="temp_proyek.persentase_progres_bulan_2" class="form-control" placeholder="%">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="control-label col-md-2">Persentase Progres Bulan 3</label>
+				<div class="col-md-10">
+					<input type="text" ng-model="temp_proyek.persentase_progres_bulan_3" class="form-control" placeholder="%">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="control-label col-md-2">Persentase Progres Bulan 4</label>
+				<div class="col-md-10">
+					<input type="text" ng-model="temp_proyek.persentase_progres_bulan_4" class="form-control" placeholder="%">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="control-label col-md-2">Persentase Progres Bulan 5</label>
+				<div class="col-md-10">
+					<input type="text" ng-model="temp_proyek.persentase_progres_bulan_5" class="form-control" placeholder="%">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="control-label col-md-2">Persentase Progres Bulan 6</label>
+				<div class="col-md-10">
+					<input type="text" ng-model="temp_proyek.persentase_progres_bulan_6" class="form-control" placeholder="%">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="control-label col-md-2">Persentase Progres Bulan 7</label>
+				<div class="col-md-10">
+					<input type="text" ng-model="temp_proyek.persentase_progres_bulan_7" class="form-control" placeholder="%">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="control-label col-md-2">Persentase Progres Bulan 8</label>
+				<div class="col-md-10">
+					<input type="text" ng-model="temp_proyek.persentase_progres_bulan_8" class="form-control" placeholder="%">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="control-label col-md-2">Persentase Progres Bulan 9</label>
+				<div class="col-md-10">
+					<input type="text" ng-model="temp_proyek.persentase_progres_bulan_9" class="form-control" placeholder="%">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="control-label col-md-2">Persentase Progres Bulan 10</label>
+				<div class="col-md-10">
+					<input type="text" ng-model="temp_proyek.persentase_progres_bulan_10" class="form-control" placeholder="%">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="control-label col-md-2">Persentase Progres Bulan 11</label>
+				<div class="col-md-10">
+					<input type="text" ng-model="temp_proyek.persentase_progres_bulan_11" class="form-control" placeholder="%">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="control-label col-md-2">Persentase Progres Bulan 12</label>
+				<div class="col-md-10">
+					<input type="text" ng-model="temp_proyek.persentase_progres_bulan_12" class="form-control" placeholder="%">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="control-label col-md-2"></label>
+				<div class="col-md-10">
+					<button ng-click="update_proyek()" class="btn btn-success">Simpan</button>
+					<a href="#/lappro" class="btn btn-warning">Kembali</a>
+					<p>*Semua Wajib diisi</p>
+					<br><br>
+					<p ng-show="is_saving"><i class="fa fa-spinner fa-pulse fa-2x"></i> Loading...</p>
+				</div>
+			</div>
+		</form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
 <script type="text/javascript">
 	$(document).ready(function() {
+
+		window.mediator = new Mediator();
+
 
 		var table = $('#proyek').DataTable( {
 			serverSide: true,
@@ -55,6 +360,7 @@
 			ajax: 'proyek/dataTableAll',
 			columns: [
 				{data: 'id', name: 'id'},
+				{data: 'id_uuk', name: 'id_uuk'},
 	            {data: 'nama_uuk', name: 'nama_uuk'},
 	            {data: 'pin', name: 'pin'},
 	            {data: 'tanggal_catat', name: 'tanggal_catat'},
@@ -72,11 +378,10 @@
 	            {data: 'keuangan_pre_financing', name: 'keuangan_pre_financing'},
 	            {data: 'status_pekerjaan', name: 'status_pekerjaan'},
 	            {data: 'persentase_progres_proyek', name: 'persentase_progres_proyek'},
-	            //{data: 'action', name: 'action', orderable: false, searchable: false}
         	],
         	columnDefs: [
         		{
-        			targets:[ 0 ],
+        			targets:[ 0,1 ],
         			visible: false,
         			searchable: false,
         		}
@@ -84,25 +389,34 @@
 		});
 
 		$('#proyek tbody').on( 'click', 'tr', function () {
-        if ( $(this).hasClass('selected') ) {
-            $(this).removeClass('selected');
-        }
-        else {
-            table.$('tr.selected').removeClass('selected');
-            $(this).addClass('selected');
-        }
+	        if ( $(this).hasClass('selected') ) {
+	            $(this).removeClass('selected');
+	            document.getElementById('edit').style.visibility = 'hidden';
+				document.getElementById('delete').style.visibility = 'hidden';
+	        }
+	        else {
+	            table.$('tr.selected').removeClass('selected');
+	            $(this).addClass('selected');
+	            document.getElementById('edit').style.visibility = 'visible';
+				document.getElementById('delete').style.visibility = 'visible';
+				var temp = table.row('.selected').data();
+				mediator.publish('updatetemp', temp);
+				console.log(temp);
+	        }
     	} );
 
 		$('#delete').click( function () {
 			// table.row('.selected').data().id
 			//table.row('.selected').remove().draw( false );
-			$.ajax({
-           		type: "DELETE",
-           		url: "proyek/"+table.row('.selected').data().id,
-           		success: function(){
-                	table.row('.selected').remove().draw( false );
-           		}
-        	});
+			if (confirm('Apakah anda yakin akan menghapus proyek ini?')) {
+				$.ajax({
+	           		type: "DELETE",
+	           		url: "proyek/"+table.row('.selected').data().id,
+	           		success: function(){
+	                	table.row('.selected').remove().draw( false );
+	           		}
+	        	});
+	        }
 		})
 		
 	})

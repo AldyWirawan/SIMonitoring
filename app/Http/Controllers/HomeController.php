@@ -33,4 +33,25 @@ class HomeController extends Controller {
 		return view('home');
 	}
 
+	public function doLogin(){
+		// mengatur login
+		// metode POST (lihat route)
+
+		// ambil input user dan cek dengan database
+		if (!Auth::attempt(Input::only('username', 'password')))	{
+			return Redirect::back()->withInput()->with('alert-danger', 'Username or password incorrect');
+		}
+		// berhasil, berikan home
+		return Redirect::action('HomeController@getIndex');
+	}
+
+	public function doLogout(){
+		// mengatur logout
+		// metode get (lihat route)
+
+		// lakukan logout, redirect ke halaman login
+		Auth::logout();
+		return Redirect::action('HomeController@showLogin');
+	}
+
 }

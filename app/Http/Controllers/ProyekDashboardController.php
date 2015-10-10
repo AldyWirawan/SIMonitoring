@@ -15,8 +15,23 @@ class ProyekDashboardController extends Controller {
 	 */
 	public function index()
 	{
-		$proyeks = DB::table('proyek')->select('nama_pekerjaan')->take(7)->get();
-		return $proyeks;
+
+	}
+
+	public function dataProgres(){
+		$progres = DB::table('proyek')
+					->select(DB::raw('nama_uuk, AVG(persentase_progres_proyek) as avg'))
+					->groupBy('id_uuk')
+					->get();
+		return (json_encode($progres));
+	}
+
+	public function dataKontrak(){
+		$progres = DB::table('proyek')
+					->select(DB::raw('nama_uuk, AVG(kontrak_nilai_total) as avg'))
+					->groupBy('id_uuk')
+					->get();
+		return (json_encode($progres));
 	}
 
 }

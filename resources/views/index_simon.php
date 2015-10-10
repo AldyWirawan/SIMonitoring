@@ -33,6 +33,9 @@
 	<script src="aset/js/highcharts.js"></script>
 	<script type="text/javascript" src="aset/js/dataTables.min.js"></script>
 
+	<!-- js mediator -->
+	<script src="aset/js/mediator.min.js"></script>
+
 	<!-- js editor -->
 	<!--
 	<script src="aset/js/editor.bootstrap.js"></script>
