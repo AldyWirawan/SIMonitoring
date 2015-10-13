@@ -1,7 +1,13 @@
 var app = angular.module('simonApp',['ngRoute']);
 
-app.run(function(){
-
+app.run(function($rootScope, $http){
+	$http({
+		url:'login/role', 
+		method:'GET'
+	}).success(function (data) {
+		console.log(data);
+		$rootScope.role = data;
+	})
 });
 
 app.service('mediator', function(){
@@ -59,25 +65,14 @@ app.factory("UUKSvc", function($http){
 	}
 })
 
-app.factory("ProyekDashboardSvc", function($http){
+app.factory("UserSvc", function($http){
 	return{
-		all: function(){
-			var req = $http({method:'GET', url:'proyekDashboard'});
+		create: function(data){
+			var req = $http({method:'POST', url:'user/create', params:data});
 			return req;
-		}
+		},
 	}
 })
-
-/*
-app.factory("UploadSvc", function($http){
-	return{
-		all: function(){
-			var req = $http({method:'GET', url:'proyek/upload'});
-			return req;
-		}
-	}
-})
-*/
 
 app.controller('ProyekCtrl', function($scope, ProyekSvc, UUKSvc){
 	$scope.get_proyeks = function(){
@@ -97,18 +92,16 @@ app.controller('ProyekCtrl', function($scope, ProyekSvc, UUKSvc){
 		var req = UUKSvc.create($scope.temp_UUK);
 		req.success(function(res){
 			$scope.is_saving = false;
-			alert("UUK "+res.status);
+			if(!alert("UUK "+res.status)){window.location.reload();}
 		});
-		$location.path('/UUK');
 	}
 	$scope.simpan_proyek = function(){
 		$scope.is_saving = true;
 		var req = ProyekSvc.create($scope.temp_proyek);
 		req.success(function(res){
 			$scope.is_saving = false;
-			alert("Proyek "+res.status);
+			if(!alert("Proyek "+res.status)){window.location.reload();}
 		});
-		$location.path('/Proyek');
 	}
 	$scope.update_proyek = function(){
 		$scope.is_saving = true;
@@ -208,29 +201,56 @@ app.controller('UUKCtrl', function($scope, UUKSvc){
 		var req = UUKSvc.create($scope.temp_UUK);
 		req.success(function(res){
 			$scope.is_saving = false;
-			alert("UUK "+res.status);
+			if(!alert("UUK "+res.status)){window.location.reload();}
 		});
-		$location.path('/UUK');
 	}
-})
+	$scope.update_UUK = function(){
+		$scope.is_saving = true;
+		console.log($scope.id);
+		console.log($scope.temp_UUK);
+		var req = UUKSvc.update($scope.id, $scope.temp_UUK);
+		req.success(function(res){
+			$scope.is_saving = false;
+			if(!alert("UUK "+res.status)){window.location.reload();}
+		});
+	}
+	$scope.update_tempUUK = function(selected){
+		$scope.temp_UUK =
+		{
+			id :selected.id,
+			nama_uuk :selected.nama_uuk,
+			waktu_didirikan :selected.waktu_didirikan,
+			kepemilikan_ITB :selected.kepemilikan_ITB,
+			penjabat :selected.penjabat,
+			alamat :selected.alamat
+		};
+		$scope.id = selected.id;
+	}
 
-app.controller('DashboardCtrl', function($scope, ProyekDashboardSvc){
-	var getProyekDashboard = ProyekDashboardSvc.all();
-	getProyekDashboard.success(function(response){
-		$scope.proyeks = response;
-	});
-})
-
-/*
-app.controller('UploadCtrl'), function($scope, UploadSvc){
-	var getFile = UploadSvc.all();
-	getFile.success(function(response){
-		$scope.file = response;
+	mediator.subscribe('updatetempUUK', function(data){
+		$scope.update_tempUUK(data);
+		$scope.$apply();
 	})
+})
 
-	$scope.getFile();
-}
-*/
+app.controller('ManageAkunCtrl', function($scope, UUKSvc, UserSvc) {
+	$scope.get_UUKs = function(){
+		var req = UUKSvc.all();
+		req.success(function(res){
+			$scope.UUKs = res;
+		});
+	}
+	$scope.tambah_user = function(){
+		$scope.is_saving = true;
+		var req = UserSvc.create($scope.temp_user);
+		req.success(function(res){
+			$scope.is_saving = false;
+			if(!alert("User "+res.status)){window.location.reload();}
+		});
+	}
+	$scope.get_UUKs();
+})
+
 
 app.controller('NavController', function($scope){
 	$scope.halaman = "beranda";
@@ -239,28 +259,46 @@ app.controller('NavController', function($scope){
 //This will handle all of our routing
 app.config(function($routeProvider, $locationProvider){	
 	$routeProvider.when('/',{
-		templateUrl:'aset/simon/pages/beranda.html',
-		controller:'DashboardCtrl'
+		templateUrl:'aset/simon/pages/beranda.html'
 	});
 	$routeProvider.when('/UUK',{
-		templateUrl:'aset/simon/pages/UUK.html'
+		templateUrl:'aset/simon/pages/UUK.html',
+		controller:'UUKCtrl',
+		resolve: {
+			factory: checkRouting
+		}
 	});
 	$routeProvider.when('/lappro',{
 		templateUrl:'aset/simon/pages/lappro.html',
 		controller:'ProyekCtrl'
 	});
-	/*
-	$routeProvider.when('/lappro/upload',{
-		controller:'UploadCtrl'
+	$routeProvider.when('/manageakun',{
+		templateUrl:'aset/simon/pages/manageakun.html',
+		controller:'ManageAkunCtrl',
+		resolve: {
+			factory: checkRouting
+		}
 	});
-	*/
 	$routeProvider.when('/tambah_proyek', {
 		templateUrl:'aset/simon/pages/tambah_proyek.html',
 		controller:'ProyekCtrl'
 	});
 	$routeProvider.when('/tambah_UUK', {
 		templateUrl:'aset/simon/pages/tambah_UUK.html',
-		controller:'UUKCtrl'
+		controller:'UUKCtrl',
+		resolve: {
+			factory: checkRouting
+		}
 	});
 });
 
+var checkRouting = function ($q, $rootScope, $location) {
+    if ($rootScope.role == "admin") {
+        return true;
+    } else {
+    	alert("you are not allowed to access this feature!");
+        var deferred = $q.defer();
+        deferred.reject();
+        return deferred.promise;
+    }
+};

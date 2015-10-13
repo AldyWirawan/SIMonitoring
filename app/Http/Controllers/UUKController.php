@@ -3,6 +3,7 @@
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\UUK;
+use App\Proyek;
 
 use Illuminate\Http\Request;
 
@@ -79,7 +80,7 @@ class UUKController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function update($id)
+	public function update($id, Request $req)
 	{
 		$edit = UUK::find($id);
 		if($edit){
@@ -117,8 +118,8 @@ class UUKController extends Controller {
 
 	public function dataTableAll()
 	{
-		$UUKs = UUK::select(['nama_uuk', 'waktu_didirikan', 'kepemilikan_ITB', 'penjabat', 'alamat']);
-        return Datatables::of($UUKs)->make();
+		$UUKs = UUK::select(['id', 'nama_uuk', 'waktu_didirikan', 'kepemilikan_ITB', 'penjabat', 'alamat']);
+        return Datatables::of($UUKs)->make(true);
 	}
 
 }

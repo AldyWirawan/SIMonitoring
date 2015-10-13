@@ -11,14 +11,14 @@ www.amitjakhu.com
 <!--META-->
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>SIXPEG</title>
+<title>SIMonitoring</title>
 
 <!--STYLESHEETS-->
 <link href="aset/css/style.css" rel="stylesheet" type="text/css" />
 
 
 <!--SCRIPTS-->
-<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.2.6/jquery.min.js"></script>
+<script type="text/javascript" src="aset/js/jquery-2.1.3.min.js"></script>
 <!--Slider-in icons-->
 <script type="text/javascript">
 $(document).ready(function() {
@@ -51,7 +51,7 @@ $(document).ready(function() {
 
 <!--LOGIN FORM-->
 
-<form name="login-form" class="login-form" action="login" method="post">
+<form name="login-form" class="login-form" method="POST" action="auth/login">
 
 	<!--HEADER-->
     <div class="header">
@@ -61,9 +61,11 @@ $(document).ready(function() {
     </div>
     <!--END HEADER-->
 	
+    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+
 	<!--CONTENT-->
     <div class="content">
-	<!--USERNAME--><input name="username" type="text" class="input username" value="Username" onfocus="this.value=''" /><!--END USERNAME-->
+	<!--USERNAME--><input name="email" type="email" class="input username" value="Email" onfocus="this.value=''" /><!--END USERNAME-->
     <!--PASSWORD--><input name="password" type="password" class="input password" value="Password" onfocus="this.value=''" /><!--END PASSWORD-->
     </div>
     <!--END CONTENT-->

@@ -2,12 +2,16 @@
 	<div class="col-md-12">
 		<h1 class="text-center" style="margin-bottom: 40px">UUK</h1>
 
+		<a id="edit" class="btn btn-warning pull-left" style="visibility: hidden" data-toggle="modal" data-target="#editForm">Edit</a>
+		<a id="delete" class="btn btn-danger pull-left" style="visibility:hidden; margin-left:10px">Delete</a>
+
 		<a href="#/tambah_UUK" class="btn btn-primary pull-right">Tambah UUK</a>
 		<br><br>
 		<div class="table-responsive">
 			<table id="uuk" class="table display">
 				<thead>
 					<tr>
+						<th>ID</th>
 						<th>Nama UUK</th>
 						<th>Waktu Didirikan</th>
 						<th>Kepemilikan ITB</th>
@@ -20,17 +24,131 @@
 	</div>
 </div>
 
+<div id="editForm" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Edit Data UUK</h4>
+      </div>
+      <div class="modal-body">
+      	<form class="form-horizontal">
+			<div ng-show="false" class="form-group">
+				<label class="control-label col-md-2"></label>
+				<div class="col-md-10">
+					<input type="text" value="{{temp_UUK.nama_uuk}}" class="form-control" placeholder="Nama">
+				</div>
+			</div>
+			<!--
+			<div class="form-group">
+				<label class="control-label col-md-2">Nama</label>
+				<div class="col-md-10">
+					<input type="text" ng-model="temp_UUK.nama_uuk" class="form-control" placeholder="Nama">
+				</div>
+			</div>
+			-->
+			<div class="form-group">
+				<label class="control-label col-md-2">Waktu Didirikan</label>
+				<div class="col-md-10">
+					<input type="text" ng-model="temp_UUK.waktu_didirikan" class="form-control" placeholder="Waktu Didirikan">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="control-label col-md-2">Kepemilikan ITB</label>
+				<div class="col-md-10">
+					<input type="text" ng-model="temp_UUK.kepemilikan_ITB" class="form-control" placeholder="Persentase Kepemilikan ITB">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="control-label col-md-2">Penjabat</label>
+				<div class="col-md-10">
+					<input type="text" ng-model="temp_UUK.penjabat" class="form-control" placeholder="Penjabat">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="control-label col-md-2">Alamat</label>
+				<div class="col-md-10">
+					<input type="text" ng-model="temp_UUK.alamat" class="form-control" placeholder="Alamat">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="control-label col-md-2"></label>
+				<div class="col-md-10">
+					<button ng-click="update_UUK()" class="btn btn-success">Simpan</button>
+					<p ng-show="is_saving"><i class="fa fa-spinner fa-pulse fa-2x"></i> Loading...</p>
+				</div>
+			</div>
+		</form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
 <script type="text/javascript">
 
 	var editor; // use a global for the submit and return data rendering in the examples
 
 	$(document).ready(function() {
 
-		$('#uuk').DataTable( {
+		window.mediator = new Mediator();
+
+		var table = $('#uuk').DataTable( {
 			serverSide: true,
 			processing: true,
 			ajax: 'uuk/dataTableAll',
+			columns: [
+				{data: 'id', name: 'id'},
+				{data: 'nama_uuk', name: 'nama_uuk'},
+				{data: 'waktu_didirikan', name: 'waktu_didirikan'},
+				{data: 'kepemilikan_ITB', name: 'kepemilikan_ITB'},
+				{data: 'penjabat', name: 'penjabat'},
+				{data: 'alamat', name: 'alamat'},
+			],
+			columnDefs: [
+        		{
+        			targets:[ 0 ],
+        			visible: false,
+        			searchable: false,
+        		}
+        	]
 		});
+
+		$('#uuk tbody').on( 'click', 'tr', function () {
+	        if ( $(this).hasClass('selected') ) {
+	            $(this).removeClass('selected');
+	            document.getElementById('edit').style.visibility = 'hidden';
+				document.getElementById('delete').style.visibility = 'hidden';
+	        }
+	        else {
+	            table.$('tr.selected').removeClass('selected');
+	            $(this).addClass('selected');
+	            document.getElementById('edit').style.visibility = 'visible';
+				document.getElementById('delete').style.visibility = 'visible';
+				var temp = table.row('.selected').data();
+				mediator.publish('updatetempUUK', temp);
+				console.log(temp);
+	        }
+    	} );
+
+		$('#delete').click( function () {
+			// table.row('.selected').data().id
+			//table.row('.selected').remove().draw( false );
+			if (confirm('Apakah anda yakin akan menghapus uuk ini?')) {
+				$.ajax({
+	           		type: "DELETE",
+	           		url: "uuk/"+table.row('.selected').data().id,
+	           		success: function(){
+	                	table.row('.selected').remove().draw( false );
+	           		}
+	        	});
+	        }
+		})
 		
 	})
 </script>

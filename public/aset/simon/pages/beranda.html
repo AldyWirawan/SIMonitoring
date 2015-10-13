@@ -2,7 +2,7 @@
 
 	$(document).ready(function(){
 		$.getJSON('dashboard/progres', function (data) {
-			console.log(data);
+			//console.log(data);
 			var cat = new Array();
 			var val = new Array();
 			var processed_json = new Array();
@@ -11,9 +11,9 @@
 				val.push(parseFloat(obj.avg));
     			processed_json.push({ x: obj.nama_uuk,y: parseFloat(obj.avg) });
 			});
-			console.log(cat);
-			console.log(val);
-			console.log(processed_json);
+			//console.log(cat);
+			//console.log(val);
+			//console.log(processed_json);
 			
 	        $('#grafik-progres').highcharts({
 	            chart: {
@@ -67,7 +67,7 @@
 
 
 		$.getJSON('dashboard/kontrak', function (data) {
-			console.log(data);
+			//console.log(data);
 			var cat = new Array();
 			var val = new Array();
 			var processed_json = new Array();
@@ -76,9 +76,9 @@
 				val.push(parseFloat(obj.avg));
     			processed_json.push({ x: obj.nama_uuk,y: parseFloat(obj.avg) });
 			});
-			console.log(cat);
-			console.log(val);
-			console.log(processed_json);
+			//console.log(cat);
+			//console.log(val);
+			//console.log(processed_json);
 			
 	        $('#grafik-kontrak').highcharts({
 	            chart: {

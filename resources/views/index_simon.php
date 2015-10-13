@@ -69,15 +69,16 @@
 		    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 			    <ul class="nav navbar-nav">
 			    	<li class="{{(halaman=='beranda')?'active':''}}"><a href="#" ng-click="halaman='beranda'">Beranda</a></li>
-			        <li class="{{(halaman=='UUK')?'active':''}}"><a href="#/UUK" ng-click="halaman='UUK'">UUK</a></li>
+			        <li ng-show="role == 'admin'" class="{{(halaman=='UUK')?'active':''}}"><a href="#/UUK" ng-click="halaman='UUK'">UUK</a></li>
 			        <li class="{{(halaman=='lappro')?'active':''}}"><a href="#/lappro" ng-click="halaman='lappro'">Laporan Proyek</a></li>
+			        <li ng-show="role == 'admin'" class="{{(halaman=='manageakun')?'active':''}}"><a href="#/manageakun" ng-click="halaman='manageakun'">Pengaturan Akun</a></li>
 			    </ul>
 
 			    <ul class="nav navbar-nav navbar-right">
 			        <li class="dropdown">
-			        	<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><span style="margin-right: 10px" class="glyphicon glyphicon-user"></span> Nama Pengguna <span class="caret"></span></a>
+			        	<a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><span style="margin-right: 10px" class="glyphicon glyphicon-user"></span> <?php echo Auth::user()->email ?> <span class="caret"></span></a>
 				        <ul class="dropdown-menu" role="menu">
-							<li><a href="#">Logout</a></li>
+							<li><a href='auth/logout'>Logout</a></li>
 				            <li><a href="#">Pengaturan Akun</a></li>
 						</ul>
 			        </li>

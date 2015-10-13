@@ -11,34 +11,40 @@
 |
 */
 
-Route::get('/login', function() {
-	return view('login');
-});
-
-Route::post('login','HomeController@doLogin');
-
-Route::get('/', function () {
-    return view('index_simon');
-});
-
-Route::get('/simon', function () {
-    return view('index_simon');
-});
-
-Route::get('proyek/dataTableAll', 'ProyekController@dataTableAll');
-Route::post('proyek/import_excel', 'ProyekController@import_excel');
-Route::get('proyek/download_template', 'ProyekController@download_template');
-
-Route::get('uuk/dataTableAll', 'UUKController@dataTableAll');
-
-Route::get('dashboard/progres', 'ProyekDashboardController@dataProgres');
-Route::get('dashboard/kontrak', 'ProyekDashboardController@dataKontrak');
-
-Route::resource('proyekDashboard', 'ProyekDashboardController');
-Route::resource('proyek', 'ProyekController');
-Route::resource('uuk', 'UUKController');
-
 Route::controllers([
 	'auth' => 'Auth\AuthController',
 	'password' => 'Auth\PasswordController',
 ]);
+
+Route::get('/login', function() {
+	return view('login');
+});
+
+Route::group(['middleware' => 'auth'], function () {
+
+	Route::get('/', function () {
+	    return view('index_simon');
+	});
+
+	Route::get('/simon', function () {
+	    return view('index_simon');
+	});
+
+	Route::get('login/role', 'HomeController@giveRole');
+
+	Route::get('dashboard/progres', 'ProyekDashboardController@dataProgres');
+	Route::get('dashboard/kontrak', 'ProyekDashboardController@dataKontrak');
+
+	Route::get('uuk/dataTableAll', 'UUKController@dataTableAll');
+
+	Route::get('proyek/dataTableAll', 'ProyekController@dataTableAll');
+	Route::post('proyek/import_excel', 'ProyekController@import_excel');
+	Route::get('proyek/download_template', 'ProyekController@download_template');
+
+	Route::get('user/dataTableAll', 'UserController@dataTableAll');
+
+	Route::post('user/create', 'UserController@create');
+
+	Route::resource('proyek', 'ProyekController');
+	Route::resource('uuk', 'UUKController');
+});
