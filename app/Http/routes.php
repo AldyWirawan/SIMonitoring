@@ -38,6 +38,7 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('uuk/dataTableAll', 'UUKController@dataTableAll');
 
 	Route::get('proyek/dataTableAll', 'ProyekController@dataTableAll');
+	Route::get('proyek/dataTable/{id}', 'ProyekController@dataTable');
 	Route::post('proyek/import_excel', 'ProyekController@import_excel');
 	Route::get('proyek/download_template', 'ProyekController@download_template');
 

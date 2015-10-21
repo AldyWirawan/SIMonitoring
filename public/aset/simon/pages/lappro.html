@@ -71,16 +71,17 @@
 			<div class="form-group">
 				<label class="control-label col-md-2">UUK</label>
 				<div class="col-md-10">
-					<select ng-model="temp_proyek.id_uuk" class="form-control">
+					<select ng-model="temp_proyek.id_uuk" ng-show="role=='admin'" class="form-control">
 						<option value="">- Pilih UUK -</option>
 						<option ng-repeat="UUK in UUKs" value="{{UUK.id}}">{{UUK.nama_uuk}}</option>
 					</select>
+					<input type="text" ng-model="temp_proyek.nama_uuk" ng-show="role!='admin'" class="form-control" disabled>
 				</div>
 			</div>
 			<div class="form-group">
 				<label class="control-label col-md-2"></label>
 				<div class="col-md-10">
-					<button class="btn btn-primary" ng-click="new_UUK = true">UUK Baru</button>
+					<button class="btn btn-primary" ng-show="role=='admin'" ng-click="new_UUK = true">UUK Baru</button>
 				</div>
 			</div>
 
@@ -350,70 +351,119 @@
 
 		window.mediator = new Mediator();
 
-		var table = $('#proyek').DataTable( {
-			serverSide: true,
-			processing: true,
-			ajax: 'proyek/dataTableAll',
-			columns: [
-				{data: 'id', name: 'id'},
-				{data: 'id_uuk', name: 'id_uuk'},
-	            {data: 'nama_uuk', name: 'nama_uuk'},
-	            {data: 'pin', name: 'pin'},
-	            {data: 'tanggal_catat', name: 'tanggal_catat'},
-	            {data: 'nama_pekerjaan', name: 'nama_pekerjaan'},
-	            {data: 'nama_pemberi_kerja', name: 'nama_pemberi_kerja'},
-	            {data: 'nama_ketua_pelaksana', name: 'nama_ketua_pelaksana'},
-	            {data: 'kontrak_tanggal', name: 'kontrak_tanggal'},
-	            {data: 'kontrak_nomor', name: 'kontrak_nomor'},
-	            {data: 'kontrak_akhir_periode', name: 'kontrak_akhir_periode'},
-	            {data: 'kontrak_nilai_total', name: 'kontrak_nilai_total'},
-	            {data: 'keuangan_invoice_total', name: 'keuangan_invoice_total'},
-	            {data: 'keuangan_sisa_invoice_total', name: 'keuangan_sisa_invoice_total'},
-	            {data: 'keuangan_usulan_penghapusan_proyek', name: 'keuangan_usulan_penghapusan_proyek'},
-	            {data: 'keuangan_total_realisasi', name: 'keuangan_total_realisasi'},
-	            {data: 'keuangan_pre_financing', name: 'keuangan_pre_financing'},
-	            {data: 'status_pekerjaan', name: 'status_pekerjaan'},
-	            {data: 'persentase_progres_proyek', name: 'persentase_progres_proyek'},
-        	],
-        	columnDefs: [
-        		{
-        			targets:[ 0,1 ],
-        			visible: false,
-        			searchable: false,
-        		}
-        	]
+		var role;
+
+		$.ajax({ 
+			type: "GET",
+	        url: "login/role",
+		    success: function(data){  
+		       role = data;
+		       datatable();
+		     }
 		});
 
-		$('#proyek tbody').on( 'click', 'tr', function () {
-	        if ( $(this).hasClass('selected') ) {
-	            $(this).removeClass('selected');
-	            document.getElementById('edit').style.visibility = 'hidden';
-				document.getElementById('delete').style.visibility = 'hidden';
-	        }
-	        else {
-	            table.$('tr.selected').removeClass('selected');
-	            $(this).addClass('selected');
-	            document.getElementById('edit').style.visibility = 'visible';
-				document.getElementById('delete').style.visibility = 'visible';
-				var temp = table.row('.selected').data();
-				mediator.publish('updatetemp', temp);
-				console.log(temp);
-	        }
-    	} );
+		function datatable() {
+			if (role == 'admin') {
+				var table = $('#proyek').DataTable( {
+					serverSide: true,
+					processing: true,
+					ajax: 'proyek/dataTableAll',
+					columns: [
+						{data: 'id', name: 'id'},
+						{data: 'id_uuk', name: 'id_uuk'},
+			            {data: 'nama_uuk', name: 'nama_uuk'},
+			            {data: 'pin', name: 'pin'},
+			            {data: 'tanggal_catat', name: 'tanggal_catat'},
+			            {data: 'nama_pekerjaan', name: 'nama_pekerjaan'},
+			            {data: 'nama_pemberi_kerja', name: 'nama_pemberi_kerja'},
+			            {data: 'nama_ketua_pelaksana', name: 'nama_ketua_pelaksana'},
+			            {data: 'kontrak_tanggal', name: 'kontrak_tanggal'},
+			            {data: 'kontrak_nomor', name: 'kontrak_nomor'},
+			            {data: 'kontrak_akhir_periode', name: 'kontrak_akhir_periode'},
+			            {data: 'kontrak_nilai_total', name: 'kontrak_nilai_total'},
+			            {data: 'keuangan_invoice_total', name: 'keuangan_invoice_total'},
+			            {data: 'keuangan_sisa_invoice_total', name: 'keuangan_sisa_invoice_total'},
+			            {data: 'keuangan_usulan_penghapusan_proyek', name: 'keuangan_usulan_penghapusan_proyek'},
+			            {data: 'keuangan_total_realisasi', name: 'keuangan_total_realisasi'},
+			            {data: 'keuangan_pre_financing', name: 'keuangan_pre_financing'},
+			            {data: 'status_pekerjaan', name: 'status_pekerjaan'},
+			            {data: 'persentase_progres_proyek', name: 'persentase_progres_proyek'},
+		        	],
+		        	columnDefs: [
+		        		{
+		        			targets:[ 0,1 ],
+		        			visible: false,
+		        			searchable: false,
+		        		}
+		        	]
+				});
+			} else {
+				var table = $('#proyek').DataTable( {
+					serverSide: true,
+					processing: true,
+					ajax: 'proyek/dataTable/'+role,
+					columns: [
+						{data: 'id', name: 'id'},
+						{data: 'id_uuk', name: 'id_uuk'},
+			            {data: 'nama_uuk', name: 'nama_uuk'},
+			            {data: 'pin', name: 'pin'},
+			            {data: 'tanggal_catat', name: 'tanggal_catat'},
+			            {data: 'nama_pekerjaan', name: 'nama_pekerjaan'},
+			            {data: 'nama_pemberi_kerja', name: 'nama_pemberi_kerja'},
+			            {data: 'nama_ketua_pelaksana', name: 'nama_ketua_pelaksana'},
+			            {data: 'kontrak_tanggal', name: 'kontrak_tanggal'},
+			            {data: 'kontrak_nomor', name: 'kontrak_nomor'},
+			            {data: 'kontrak_akhir_periode', name: 'kontrak_akhir_periode'},
+			            {data: 'kontrak_nilai_total', name: 'kontrak_nilai_total'},
+			            {data: 'keuangan_invoice_total', name: 'keuangan_invoice_total'},
+			            {data: 'keuangan_sisa_invoice_total', name: 'keuangan_sisa_invoice_total'},
+			            {data: 'keuangan_usulan_penghapusan_proyek', name: 'keuangan_usulan_penghapusan_proyek'},
+			            {data: 'keuangan_total_realisasi', name: 'keuangan_total_realisasi'},
+			            {data: 'keuangan_pre_financing', name: 'keuangan_pre_financing'},
+			            {data: 'status_pekerjaan', name: 'status_pekerjaan'},
+			            {data: 'persentase_progres_proyek', name: 'persentase_progres_proyek'},
+		        	],
+		        	columnDefs: [
+		        		{
+		        			targets:[ 0,1 ],
+		        			visible: false,
+		        			searchable: false,
+		        		}
+		        	]
+				});
+			}
 
-		$('#delete').click( function () {
-			// table.row('.selected').data().id
-			//table.row('.selected').remove().draw( false );
-			if (confirm('Apakah anda yakin akan menghapus proyek ini?')) {
-				$.ajax({
-	           		type: "DELETE",
-	           		url: "proyek/"+table.row('.selected').data().id,
-	           		success: function(){
-	                	table.row('.selected').remove().draw( false );
-	           		}
-	        	});
-	        }
-		})
+			$('#proyek tbody').on( 'click', 'tr', function () {
+		        if ( $(this).hasClass('selected') ) {
+		            $(this).removeClass('selected');
+		            document.getElementById('edit').style.visibility = 'hidden';
+					document.getElementById('delete').style.visibility = 'hidden';
+		        }
+		        else {
+		            table.$('tr.selected').removeClass('selected');
+		            $(this).addClass('selected');
+		            document.getElementById('edit').style.visibility = 'visible';
+					document.getElementById('delete').style.visibility = 'visible';
+					var temp = table.row('.selected').data();
+					mediator.publish('updatetemp', temp);
+					console.log(temp);
+		        }
+	    	} );
+
+			$('#delete').click( function () {
+				// table.row('.selected').data().id
+				//table.row('.selected').remove().draw( false );
+				if (confirm('Apakah anda yakin akan menghapus proyek ini?')) {
+					$.ajax({
+		           		type: "DELETE",
+		           		url: "proyek/"+table.row('.selected').data().id,
+		           		success: function(){
+		                	table.row('.selected').remove().draw( false );
+		           		}
+		        	});
+		        }
+			})
+		}
 		
 	})
 </script>

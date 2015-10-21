@@ -179,6 +179,15 @@ class ProyekController extends Controller {
         return view('datatables.fluent.add-edit-remove-column');
     }
 
+    public function dataTable($id)
+    {
+    	$proyeks = Proyek::select(['id', 'id_uuk', 'nama_uuk', 'pin', 'tanggal_catat', 'nama_pekerjaan', 'nama_pemberi_kerja', 'nama_ketua_pelaksana', 'kontrak_tanggal', 'kontrak_nomor', 'kontrak_akhir_periode', 'kontrak_nilai_total', 'keuangan_invoice_total', 'keuangan_sisa_invoice_total', 'keuangan_usulan_penghapusan_proyek', 'keuangan_total_realisasi', 'keuangan_pre_financing', 'status_pekerjaan', 'persentase_progres_proyek'])
+    				->where('id', $id)
+    				->get();
+    	return Datatables::of($proyeks)
+            ->make(true);
+    }
+
 	public function dataTableAll()
 	{
 		$proyeks = Proyek::select(['id', 'id_uuk', 'nama_uuk', 'pin', 'tanggal_catat', 'nama_pekerjaan', 'nama_pemberi_kerja', 'nama_ketua_pelaksana', 'kontrak_tanggal', 'kontrak_nomor', 'kontrak_akhir_periode', 'kontrak_nilai_total', 'keuangan_invoice_total', 'keuangan_sisa_invoice_total', 'keuangan_usulan_penghapusan_proyek', 'keuangan_total_realisasi', 'keuangan_pre_financing', 'status_pekerjaan', 'persentase_progres_proyek'])->get();

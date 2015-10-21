@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
+use Auth;
+
 class ProyekDashboardController extends Controller {
 
 	/**
@@ -19,19 +21,31 @@ class ProyekDashboardController extends Controller {
 	}
 
 	public function dataProgres(){
-		$progres = DB::table('proyek')
-					->select(DB::raw('nama_uuk, AVG(persentase_progres_proyek) as avg'))
-					->groupBy('id_uuk')
-					->get();
+		if (Auth::user()->role == 'admin') {
+			$progres = DB::table('proyek')
+						->select(DB::raw('nama_uuk, AVG(persentase_progres_proyek) as avg'))
+						->groupBy('id_uuk')
+						->get();
+		} else {
+			$progres = DB::table('proyek')
+						->select('nama_pekerjaan', 'persentase_progres_proyek')
+						->get();
+		}
 		return (json_encode($progres));
 	}
 
 	public function dataKontrak(){
-		$progres = DB::table('proyek')
-					->select(DB::raw('nama_uuk, AVG(kontrak_nilai_total) as avg'))
-					->groupBy('id_uuk')
-					->get();
-		return (json_encode($progres));
+		if (Auth::user()->role == 'admin') {
+			$kontraks = DB::table('proyek')
+						->select(DB::raw('nama_uuk, AVG(kontrak_nilai_total) as avg'))
+						->groupBy('id_uuk')
+						->get();
+		} else {
+			$kontraks = DB::table('proyek')
+						->select('nama_pekerjaan', 'kontrak_nilai_total')
+						->get();
+		}
+		return (json_encode($kontraks));
 	}
 
 }

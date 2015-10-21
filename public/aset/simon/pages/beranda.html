@@ -2,68 +2,123 @@
 
 	$(document).ready(function(){
 		$.getJSON('dashboard/progres', function (data) {
-			//console.log(data);
 			var cat = new Array();
 			var val = new Array();
 			var processed_json = new Array();
-			$.map(data, function (obj, i) {
-				cat.push(obj.nama_uuk);
-				val.push(parseFloat(obj.avg));
-    			processed_json.push({ x: obj.nama_uuk,y: parseFloat(obj.avg) });
-			});
+			if (data[0].nama_uuk != null) {
+				$.map(data, function (obj, i) {
+					cat.push(obj.nama_uuk);
+					val.push(parseFloat(obj.avg));
+	    			processed_json.push({ x: obj.nama_uuk,y: parseFloat(obj.avg) });
+				});
+			} else {
+				$.map(data, function (obj, i) {
+					cat.push(obj.nama_pekerjaan);
+					val.push(parseFloat(obj.persentase_progres_proyek));
+	    			processed_json.push({ x: obj.nama_pekerjaan,y: parseFloat(obj.persentase_progres_proyek) });
+				});
+			}
 			//console.log(cat);
 			//console.log(val);
 			//console.log(processed_json);
-			
-	        $('#grafik-progres').highcharts({
-	            chart: {
-	                type: 'column'
-	            },
-	            title: {
-	                text: 'Persentase Progres Proyek'
-	            },
-	            subtitle: {
-	                text: 'rata-rata'
-	            },
-	            xAxis: {
-	            	categories: cat
-	            },
-	            yAxis: {
-	                title: {
-	                    text: 'persen'
-	                }
-	            },
-	            legend: {
-	                enabled: false
-	            },
-	            /*
-	            tooltip: {
-	            	useHTML: true,
-	                formatter: function() {
-	                	var red = '<img src="red.png" title="" alt="" border="0" height="16" width="16">';
-	                	var green = '<img src="green.png" title="" alt="" border="0" height="16" width="16">';
-	                	var newl;
-	                	var newpr;
-	                	if (this.point.l > 0)
-	                		newl = green;
-	                	else
-	                		newl = red;
-	                	if (this.point.pr > 0)
-	                		newpr = green;
-	                	else
-	                		newpr = red;
-	                    return 'Harga :<b>' + this.y + '</b><br>Prediksi :' + newpr;
-	                }
-	            }, */
+			if (data[0].nama_uuk != null) {
+		        $('#grafik-progres').highcharts({
+		            chart: {
+		                type: 'column'
+		            },
+		            title: {
+		                text: 'Persentase Progres Proyek'
+		            },
+		            subtitle: {
+		                text: 'rata-rata'
+		            },
+		            xAxis: {
+		            	categories: cat
+		            },
+		            yAxis: {
+		                title: {
+		                    text: 'persen'
+		                }
+		            },
+		            legend: {
+		                enabled: false
+		            },
+		            /*
+		            tooltip: {
+		            	useHTML: true,
+		                formatter: function() {
+		                	var red = '<img src="red.png" title="" alt="" border="0" height="16" width="16">';
+		                	var green = '<img src="green.png" title="" alt="" border="0" height="16" width="16">';
+		                	var newl;
+		                	var newpr;
+		                	if (this.point.l > 0)
+		                		newl = green;
+		                	else
+		                		newl = red;
+		                	if (this.point.pr > 0)
+		                		newpr = green;
+		                	else
+		                		newpr = red;
+		                    return 'Harga :<b>' + this.y + '</b><br>Prediksi :' + newpr;
+		                }
+		            }, */
 
-	            series: [{
-	            	name: "rata-rata",
-	            	data: val
-	            }]
-	          
-	        });
+		            series: [{
+		            	name: "rata-rata",
+		            	data: val
+		            }]
+		          
+		        });
+			} else {
+				$('#grafik-progres').highcharts({
+		            chart: {
+		                type: 'column'
+		            },
+		            title: {
+		                text: 'Persentase Progres Proyek'
+		            },
+		            subtitle: {
+		                text: ''
+		            },
+		            xAxis: {
+		            	categories: cat
+		            },
+		            yAxis: {
+		                title: {
+		                    text: 'persen'
+		                }
+		            },
+		            legend: {
+		                enabled: false
+		            },
+		            /*
+		            tooltip: {
+		            	useHTML: true,
+		                formatter: function() {
+		                	var red = '<img src="red.png" title="" alt="" border="0" height="16" width="16">';
+		                	var green = '<img src="green.png" title="" alt="" border="0" height="16" width="16">';
+		                	var newl;
+		                	var newpr;
+		                	if (this.point.l > 0)
+		                		newl = green;
+		                	else
+		                		newl = red;
+		                	if (this.point.pr > 0)
+		                		newpr = green;
+		                	else
+		                		newpr = red;
+		                    return 'Harga :<b>' + this.y + '</b><br>Prediksi :' + newpr;
+		                }
+		            }, */
+
+		            series: [{
+		            	name: "rata-rata",
+		            	data: val
+		            }]
+		          
+		        });
+			}
 	    });
-
 
 
 		$.getJSON('dashboard/kontrak', function (data) {
@@ -71,62 +126,120 @@
 			var cat = new Array();
 			var val = new Array();
 			var processed_json = new Array();
-			$.map(data, function (obj, i) {
-				cat.push(obj.nama_uuk);
-				val.push(parseFloat(obj.avg));
-    			processed_json.push({ x: obj.nama_uuk,y: parseFloat(obj.avg) });
-			});
+			if (data[0].nama_uuk != null) {
+				$.map(data, function (obj, i) {
+					cat.push(obj.nama_uuk);
+					val.push(parseFloat(obj.avg));
+	    			processed_json.push({ x: obj.nama_uuk,y: parseFloat(obj.avg) });
+				});
+			} else {
+				$.map(data, function (obj, i) {
+					cat.push(obj.nama_pekerjaan);
+					val.push(parseFloat(obj.kontrak_nilai_total));
+	    			processed_json.push({ x: obj.nama_pekerjaan,y: parseFloat(obj.kontrak_nilai_total) });
+				});
+			}
 			//console.log(cat);
 			//console.log(val);
 			//console.log(processed_json);
 			
-	        $('#grafik-kontrak').highcharts({
-	            chart: {
-	                type: 'column'
-	            },
-	            title: {
-	                text: 'Kontrak Total Proyek'
-	            },
-	            subtitle: {
-	                text: 'rata-rata'
-	            },
-	            xAxis: {
-	            	categories: cat
-	            },
-	            yAxis: {
-	                title: {
-	                    text: 'rupiah'
-	                }
-	            },
-	            legend: {
-	                enabled: false
-	            },
-	            /*
-	            tooltip: {
-	            	useHTML: true,
-	                formatter: function() {
-	                	var red = '<img src="red.png" title="" alt="" border="0" height="16" width="16">';
-	                	var green = '<img src="green.png" title="" alt="" border="0" height="16" width="16">';
-	                	var newl;
-	                	var newpr;
-	                	if (this.point.l > 0)
-	                		newl = green;
-	                	else
-	                		newl = red;
-	                	if (this.point.pr > 0)
-	                		newpr = green;
-	                	else
-	                		newpr = red;
-	                    return 'Harga :<b>' + this.y + '</b><br>Prediksi :' + newpr;
-	                }
-	            }, */
+			if (data[0].nama_uuk != null) {
+		        $('#grafik-kontrak').highcharts({
+		            chart: {
+		                type: 'column'
+		            },
+		            title: {
+		                text: 'Kontrak Total Proyek'
+		            },
+		            subtitle: {
+		                text: 'rata-rata'
+		            },
+		            xAxis: {
+		            	categories: cat
+		            },
+		            yAxis: {
+		                title: {
+		                    text: 'rupiah'
+		                }
+		            },
+		            legend: {
+		                enabled: false
+		            },
+		            /*
+		            tooltip: {
+		            	useHTML: true,
+		                formatter: function() {
+		                	var red = '<img src="red.png" title="" alt="" border="0" height="16" width="16">';
+		                	var green = '<img src="green.png" title="" alt="" border="0" height="16" width="16">';
+		                	var newl;
+		                	var newpr;
+		                	if (this.point.l > 0)
+		                		newl = green;
+		                	else
+		                		newl = red;
+		                	if (this.point.pr > 0)
+		                		newpr = green;
+		                	else
+		                		newpr = red;
+		                    return 'Harga :<b>' + this.y + '</b><br>Prediksi :' + newpr;
+		                }
+		            }, */
 
-	            series: [{
-	            	name: "rata-rata",
-	            	data: val
-	            }]
-	          
-	        });
+		            series: [{
+		            	name: "rata-rata",
+		            	data: val
+		            }]
+		          
+		        });
+			} else {
+				$('#grafik-kontrak').highcharts({
+		            chart: {
+		                type: 'column'
+		            },
+		            title: {
+		                text: 'Kontrak Total Proyek'
+		            },
+		            subtitle: {
+		                text: ''
+		            },
+		            xAxis: {
+		            	categories: cat
+		            },
+		            yAxis: {
+		                title: {
+		                    text: 'rupiah'
+		                }
+		            },
+		            legend: {
+		                enabled: false
+		            },
+		            /*
+		            tooltip: {
+		            	useHTML: true,
+		                formatter: function() {
+		                	var red = '<img src="red.png" title="" alt="" border="0" height="16" width="16">';
+		                	var green = '<img src="green.png" title="" alt="" border="0" height="16" width="16">';
+		                	var newl;
+		                	var newpr;
+		                	if (this.point.l > 0)
+		                		newl = green;
+		                	else
+		                		newl = red;
+		                	if (this.point.pr > 0)
+		                		newpr = green;
+		                	else
+		                		newpr = red;
+		                    return 'Harga :<b>' + this.y + '</b><br>Prediksi :' + newpr;
+		                }
+		            }, */
+
+		            series: [{
+		            	name: "rata-rata",
+		            	data: val
+		            }]
+		          
+		        });
+			}
 	    });
 	});
 </script>

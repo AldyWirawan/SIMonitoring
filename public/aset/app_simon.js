@@ -1,13 +1,7 @@
 var app = angular.module('simonApp',['ngRoute']);
 
-app.run(function($rootScope, $http){
-	$http({
-		url:'login/role', 
-		method:'GET'
-	}).success(function (data) {
-		console.log(data);
-		$rootScope.role = data;
-	})
+app.run(function(){
+	
 });
 
 app.service('mediator', function(){
@@ -74,6 +68,10 @@ app.factory("UserSvc", function($http){
 	}
 })
 
+app.controller('DashboardCtrl', function($http, $scope){
+	
+})
+
 app.controller('ProyekCtrl', function($scope, ProyekSvc, UUKSvc){
 	$scope.get_proyeks = function(){
 		var req = ProyekSvc.all();
@@ -85,6 +83,12 @@ app.controller('ProyekCtrl', function($scope, ProyekSvc, UUKSvc){
 		var req = UUKSvc.all();
 		req.success(function(res){
 			$scope.UUKs = res;
+		});
+	}
+	$scope.get_UUKname = function(iduuk){
+		var req = UUKSvc.get(iduuk);
+		req.success(function(res){
+			return res.nama_uuk;
 		});
 	}
 	$scope.simpan_UUK = function(){
@@ -125,6 +129,7 @@ app.controller('ProyekCtrl', function($scope, ProyekSvc, UUKSvc){
 		$scope.temp_proyek =
 		{
 			id_uuk :selected.id_uuk,
+			nama_uuk :selected.nama_uuk,
 			pin :selected.pin,
 			tanggal_catat :selected.tanggal_catat,
 			nama_pekerjaan :selected.nama_pekerjaan,
@@ -195,6 +200,126 @@ app.controller('ProyekCtrl', function($scope, ProyekSvc, UUKSvc){
 	$scope.get_UUKs();
 })
 
+app.controller('TambahProyekCtrl', function($scope, $http, ProyekSvc, UUKSvc){
+	$scope.get_proyeks = function(){
+		var req = ProyekSvc.all();
+		req.success(function(res){
+			$scope.proyeks = res;
+		});
+	}
+	$scope.get_UUKs = function(){
+		var req = UUKSvc.all();
+		req.success(function(res){
+			$scope.UUKs = res;
+		});
+	}
+	$scope.updateTempProyek = function(iduuk){
+		var req = UUKSvc.get(iduuk);
+		req.success(function(res){
+			if ($scope.role == 'admin') {
+				$scope.temp_proyek =
+				{
+					kontrak_nilai_euro:'0',
+					kontrak_nilai_jpy:'0',
+					kontrak_nilai_dollar:'0',
+					kontrak_nilai_rupiah:'0',
+					kontrak_nilai_total:'0',
+					keuangan_invoice_total:'0',
+					keuangan_sisa_invoice_total:'0',
+					keuangan_usulan_penghapusan_proyek:'0',
+					keuangan_total_realisasi:'0',
+					keuangan_pre_financing:'0',
+					persentase_progres_bulan_1:'0',
+					persentase_progres_bulan_2:'0',
+					persentase_progres_bulan_3:'0',
+					persentase_progres_bulan_4:'0',
+					persentase_progres_bulan_5:'0',
+					persentase_progres_bulan_6:'0',
+					persentase_progres_bulan_7:'0',
+					persentase_progres_bulan_8:'0',
+					persentase_progres_bulan_9:'0',
+					persentase_progres_bulan_10:'0',
+					persentase_progres_bulan_11:'0',
+					persentase_progres_bulan_12:'0'
+				};
+			} else {
+				$scope.temp_proyek =
+				{
+					id_uuk: iduuk,
+					nama_uuk: res.nama_uuk,
+					kontrak_nilai_euro:'0',
+					kontrak_nilai_jpy:'0',
+					kontrak_nilai_dollar:'0',
+					kontrak_nilai_rupiah:'0',
+					kontrak_nilai_total:'0',
+					keuangan_invoice_total:'0',
+					keuangan_sisa_invoice_total:'0',
+					keuangan_usulan_penghapusan_proyek:'0',
+					keuangan_total_realisasi:'0',
+					keuangan_pre_financing:'0',
+					persentase_progres_bulan_1:'0',
+					persentase_progres_bulan_2:'0',
+					persentase_progres_bulan_3:'0',
+					persentase_progres_bulan_4:'0',
+					persentase_progres_bulan_5:'0',
+					persentase_progres_bulan_6:'0',
+					persentase_progres_bulan_7:'0',
+					persentase_progres_bulan_8:'0',
+					persentase_progres_bulan_9:'0',
+					persentase_progres_bulan_10:'0',
+					persentase_progres_bulan_11:'0',
+					persentase_progres_bulan_12:'0'
+				};
+			}
+		});
+	}
+	$scope.simpan_UUK = function(){
+		$scope.is_saving = true;
+		var req = UUKSvc.create($scope.temp_UUK);
+		req.success(function(res){
+			$scope.is_saving = false;
+			if(!alert("UUK "+res.status)){window.location.reload();}
+		});
+	}
+	$scope.simpan_proyek = function(){
+		$scope.is_saving = true;
+		var req = ProyekSvc.create($scope.temp_proyek);
+		req.success(function(res){
+			$scope.is_saving = false;
+			if(!alert("Proyek "+res.status)){window.location.reload();}
+		});
+	}
+	$scope.update_proyek = function(){
+		$scope.is_saving = true;
+		console.log($scope.id);
+		console.log($scope.temp_proyek);
+		var req = ProyekSvc.update($scope.id, $scope.temp_proyek);
+		req.success(function(res){
+			$scope.is_saving = false;
+			if(!alert("Proyek "+res.status)){window.location.reload();}
+		});
+	}
+	$scope.delete_proyek = function(){
+		var req = ProyekSvc.delete($scope.id);
+		req.success(function(res){
+			$scope.is_saving = false;
+			alert("Proyek "+res.status);
+		});
+	}
+	$http({
+		url:'login/role', 
+		method:'GET',
+	}).success(function (data) {
+		$scope.role = data;
+		$scope.updateTempProyek($scope.role);
+		
+	})
+	
+	$scope.get_proyeks();
+	$scope.get_UUKs();
+
+})
+
 app.controller('UUKCtrl', function($scope, UUKSvc){
 	$scope.simpan_UUK = function(){
 		$scope.is_saving = true;
@@ -252,21 +377,34 @@ app.controller('ManageAkunCtrl', function($scope, UUKSvc, UserSvc) {
 })
 
 
-app.controller('NavController', function($scope){
-	$scope.halaman = "beranda";
+app.controller('NavController', function($rootScope, $http, $location){
+	$http({
+		url:'login/role', 
+		method:'GET',
+	}).success(function (data) {
+		//console.log(data);
+		$rootScope.role = data;
+		$rootScope.$on('$routeChangeStart', function (event, next) {
+	        if (next.boleh != null) {
+	            if ($rootScope.role != next.boleh)
+	            	$location.path('/');
+	        }
+    	});
+	})
+
+	
 });
  
 //This will handle all of our routing
 app.config(function($routeProvider, $locationProvider){	
 	$routeProvider.when('/',{
-		templateUrl:'aset/simon/pages/beranda.html'
+		templateUrl:'aset/simon/pages/beranda.html',
+		controller:'DashboardCtrl'
 	});
 	$routeProvider.when('/UUK',{
 		templateUrl:'aset/simon/pages/UUK.html',
 		controller:'UUKCtrl',
-		resolve: {
-			factory: checkRouting
-		}
+		boleh:'admin'
 	});
 	$routeProvider.when('/lappro',{
 		templateUrl:'aset/simon/pages/lappro.html',
@@ -275,30 +413,35 @@ app.config(function($routeProvider, $locationProvider){
 	$routeProvider.when('/manageakun',{
 		templateUrl:'aset/simon/pages/manageakun.html',
 		controller:'ManageAkunCtrl',
-		resolve: {
-			factory: checkRouting
-		}
+		boleh:'admin'
 	});
 	$routeProvider.when('/tambah_proyek', {
 		templateUrl:'aset/simon/pages/tambah_proyek.html',
-		controller:'ProyekCtrl'
+		controller:'TambahProyekCtrl'
 	});
 	$routeProvider.when('/tambah_UUK', {
 		templateUrl:'aset/simon/pages/tambah_UUK.html',
 		controller:'UUKCtrl',
-		resolve: {
-			factory: checkRouting
-		}
+		boleh:'admin'
 	});
 });
 
-var checkRouting = function ($q, $rootScope, $location) {
-    if ($rootScope.role == "admin") {
-        return true;
-    } else {
-    	alert("you are not allowed to access this feature!");
-        var deferred = $q.defer();
-        deferred.reject();
-        return deferred.promise;
-    }
+/*
+var checkRouting = function ($q, $rootScope, $location, $http) {
+    $http({
+		url:'login/role', 
+		method:'GET',
+	}).success(function (data) {
+		//console.log(data);
+		$rootScope.role = data;
+		if ($rootScope.role != "admin") {
+	    	alert("you are not allowed to access this feature!");
+	        var deferred = $q.defer();
+	        deferred.reject();
+	        return deferred.promise;
+	    } else {
+	    	return true;
+	    }
+	})
 };
+*/
