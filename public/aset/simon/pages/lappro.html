@@ -31,6 +31,9 @@
 						<th>Usulan Penghapusan Proyek</th>
 						<th>Total Realisasi</th>
 						<th>Pre-Financing</th>
+						<th>Pendapatan</th>
+						<th>Laba</th>
+						<th>Dividen</th>
 						<th>Status Pekerjaan</th>
 						<th>Persentase Proyek</th>
 					</tr>
@@ -246,7 +249,25 @@
 				</div>
 			</div>
 			<div class="form-group">
-				<label class="control-label col-md-2">Pre-inancing</label>
+				<label class="control-label col-md-2">Pre-financing</label>
+				<div class="col-md-10">
+					<input type="text" ng-model="temp_proyek.keuangan_pre_financing" class="form-control" placeholder="Rp.">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="control-label col-md-2">Pendapatan</label>
+				<div class="col-md-10">
+					<input type="text" ng-model="temp_proyek.keuangan_pre_financing" class="form-control" placeholder="Rp.">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="control-label col-md-2">Laba</label>
+				<div class="col-md-10">
+					<input type="text" ng-model="temp_proyek.keuangan_pre_financing" class="form-control" placeholder="Rp.">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="control-label col-md-2">Dividen</label>
 				<div class="col-md-10">
 					<input type="text" ng-model="temp_proyek.keuangan_pre_financing" class="form-control" placeholder="Rp.">
 				</div>
@@ -386,6 +407,9 @@
 			            {data: 'keuangan_usulan_penghapusan_proyek', name: 'keuangan_usulan_penghapusan_proyek'},
 			            {data: 'keuangan_total_realisasi', name: 'keuangan_total_realisasi'},
 			            {data: 'keuangan_pre_financing', name: 'keuangan_pre_financing'},
+			            {data: 'keuangan_pendapatan', name: 'keuangan_pendapatan'},
+			            {data: 'keuangan_laba', name: 'keuangan_laba'},
+			            {data: 'keuangan_dividen', name: 'keuangan_dividen'},
 			            {data: 'status_pekerjaan', name: 'status_pekerjaan'},
 			            {data: 'persentase_progres_proyek', name: 'persentase_progres_proyek'},
 		        	],
@@ -420,6 +444,9 @@
 			            {data: 'keuangan_usulan_penghapusan_proyek', name: 'keuangan_usulan_penghapusan_proyek'},
 			            {data: 'keuangan_total_realisasi', name: 'keuangan_total_realisasi'},
 			            {data: 'keuangan_pre_financing', name: 'keuangan_pre_financing'},
+			            {data: 'keuangan_pendapatan', name: 'keuangan_pendapatan'},
+			            {data: 'keuangan_laba', name: 'keuangan_laba'},
+			            {data: 'keuangan_dividen', name: 'keuangan_dividen'},
 			            {data: 'status_pekerjaan', name: 'status_pekerjaan'},
 			            {data: 'persentase_progres_proyek', name: 'persentase_progres_proyek'},
 		        	],

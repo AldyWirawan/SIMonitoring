@@ -34,6 +34,9 @@ Route::group(['middleware' => 'auth'], function () {
 
 	Route::get('dashboard/progres', 'ProyekDashboardController@dataProgres');
 	Route::get('dashboard/kontrak', 'ProyekDashboardController@dataKontrak');
+	Route::get('dashboard/pendapatan', 'ProyekDashboardController@dataPendapatan');
+	Route::get('dashboard/laba', 'ProyekDashboardController@dataLaba');
+	Route::get('dashboard/dividen', 'ProyekDashboardController@dataDividen');
 
 	Route::get('uuk/dataTableAll', 'UUKController@dataTableAll');
 

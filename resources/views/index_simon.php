@@ -79,7 +79,6 @@
 			        	<a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><span style="margin-right: 10px" class="glyphicon glyphicon-user"></span> <?php echo Auth::user()->email ?> <span class="caret"></span></a>
 				        <ul class="dropdown-menu" role="menu">
 							<li><a href='auth/logout'>Logout</a></li>
-				            <li><a href="#">Pengaturan Akun</a></li>
 						</ul>
 			        </li>
 			    </ul>

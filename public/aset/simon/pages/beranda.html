@@ -64,7 +64,7 @@
 		            }, */
 
 		            series: [{
-		            	name: "rata-rata",
+		            	name: "rata-rata (%)",
 		            	data: val
 		            }]
 		          
@@ -112,7 +112,7 @@
 		            }, */
 
 		            series: [{
-		            	name: "rata-rata",
+		            	name: "progres (%)",
 		            	data: val
 		            }]
 		          
@@ -234,7 +234,372 @@
 		            }, */
 
 		            series: [{
+		            	name: "jumlah",
+		            	data: val
+		            }]
+		          
+		        });
+			}
+	    });
+
+
+		$.getJSON('dashboard/pendapatan', function (data) {
+			//console.log(data);
+			var cat = new Array();
+			var val = new Array();
+			var processed_json = new Array();
+			if (data[0].nama_uuk != null) {
+				$.map(data, function (obj, i) {
+					cat.push(obj.nama_uuk);
+					val.push(parseFloat(obj.avg));
+	    			processed_json.push({ x: obj.nama_uuk,y: parseFloat(obj.avg) });
+				});
+			} else {
+				$.map(data, function (obj, i) {
+					cat.push(obj.nama_pekerjaan);
+					val.push(parseFloat(obj.keuangan_pendapatan));
+	    			processed_json.push({ x: obj.nama_pekerjaan,y: parseFloat(obj.keuangan_pendapatan) });
+				});
+			}
+			//console.log(cat);
+			//console.log(val);
+			//console.log(processed_json);
+			
+			if (data[0].nama_uuk != null) {
+		        $('#grafik-pendapatan').highcharts({
+		            chart: {
+		                type: 'column'
+		            },
+		            title: {
+		                text: 'Pendapatan Proyek'
+		            },
+		            subtitle: {
+		                text: 'rata-rata'
+		            },
+		            xAxis: {
+		            	categories: cat
+		            },
+		            yAxis: {
+		                title: {
+		                    text: 'rupiah'
+		                }
+		            },
+		            legend: {
+		                enabled: false
+		            },
+		            /*
+		            tooltip: {
+		            	useHTML: true,
+		                formatter: function() {
+		                	var red = '<img src="red.png" title="" alt="" border="0" height="16" width="16">';
+		                	var green = '<img src="green.png" title="" alt="" border="0" height="16" width="16">';
+		                	var newl;
+		                	var newpr;
+		                	if (this.point.l > 0)
+		                		newl = green;
+		                	else
+		                		newl = red;
+		                	if (this.point.pr > 0)
+		                		newpr = green;
+		                	else
+		                		newpr = red;
+		                    return 'Harga :<b>' + this.y + '</b><br>Prediksi :' + newpr;
+		                }
+		            }, */
+
+		            series: [{
 		            	name: "rata-rata",
+		            	data: val
+		            }]
+		          
+		        });
+			} else {
+				$('#grafik-pendapatan').highcharts({
+		            chart: {
+		                type: 'column'
+		            },
+		            title: {
+		                text: 'Pendapatan Proyek'
+		            },
+		            subtitle: {
+		                text: ''
+		            },
+		            xAxis: {
+		            	categories: cat
+		            },
+		            yAxis: {
+		                title: {
+		                    text: 'rupiah'
+		                }
+		            },
+		            legend: {
+		                enabled: false
+		            },
+		            /*
+		            tooltip: {
+		            	useHTML: true,
+		                formatter: function() {
+		                	var red = '<img src="red.png" title="" alt="" border="0" height="16" width="16">';
+		                	var green = '<img src="green.png" title="" alt="" border="0" height="16" width="16">';
+		                	var newl;
+		                	var newpr;
+		                	if (this.point.l > 0)
+		                		newl = green;
+		                	else
+		                		newl = red;
+		                	if (this.point.pr > 0)
+		                		newpr = green;
+		                	else
+		                		newpr = red;
+		                    return 'Harga :<b>' + this.y + '</b><br>Prediksi :' + newpr;
+		                }
+		            }, */
+
+		            series: [{
+		            	name: "jumlah",
+		            	data: val
+		            }]
+		          
+		        });
+			}
+	    });
+
+
+		$.getJSON('dashboard/laba', function (data) {
+			//console.log(data);
+			var cat = new Array();
+			var val = new Array();
+			var processed_json = new Array();
+			if (data[0].nama_uuk != null) {
+				$.map(data, function (obj, i) {
+					cat.push(obj.nama_uuk);
+					val.push(parseFloat(obj.avg));
+	    			processed_json.push({ x: obj.nama_uuk,y: parseFloat(obj.avg) });
+				});
+			} else {
+				$.map(data, function (obj, i) {
+					cat.push(obj.nama_pekerjaan);
+					val.push(parseFloat(obj.keuangan_laba));
+	    			processed_json.push({ x: obj.nama_pekerjaan,y: parseFloat(obj.keuangan_laba) });
+				});
+			}
+			//console.log(cat);
+			//console.log(val);
+			//console.log(processed_json);
+			
+			if (data[0].nama_uuk != null) {
+		        $('#grafik-laba').highcharts({
+		            chart: {
+		                type: 'column'
+		            },
+		            title: {
+		                text: 'Laba Proyek'
+		            },
+		            subtitle: {
+		                text: 'rata-rata'
+		            },
+		            xAxis: {
+		            	categories: cat
+		            },
+		            yAxis: {
+		                title: {
+		                    text: 'rupiah'
+		                }
+		            },
+		            legend: {
+		                enabled: false
+		            },
+		            /*
+		            tooltip: {
+		            	useHTML: true,
+		                formatter: function() {
+		                	var red = '<img src="red.png" title="" alt="" border="0" height="16" width="16">';
+		                	var green = '<img src="green.png" title="" alt="" border="0" height="16" width="16">';
+		                	var newl;
+		                	var newpr;
+		                	if (this.point.l > 0)
+		                		newl = green;
+		                	else
+		                		newl = red;
+		                	if (this.point.pr > 0)
+		                		newpr = green;
+		                	else
+		                		newpr = red;
+		                    return 'Harga :<b>' + this.y + '</b><br>Prediksi :' + newpr;
+		                }
+		            }, */
+
+		            series: [{
+		            	name: "rata-rata",
+		            	data: val
+		            }]
+		          
+		        });
+			} else {
+				$('#grafik-laba').highcharts({
+		            chart: {
+		                type: 'column'
+		            },
+		            title: {
+		                text: 'Laba Proyek'
+		            },
+		            subtitle: {
+		                text: ''
+		            },
+		            xAxis: {
+		            	categories: cat
+		            },
+		            yAxis: {
+		                title: {
+		                    text: 'rupiah'
+		                }
+		            },
+		            legend: {
+		                enabled: false
+		            },
+		            /*
+		            tooltip: {
+		            	useHTML: true,
+		                formatter: function() {
+		                	var red = '<img src="red.png" title="" alt="" border="0" height="16" width="16">';
+		                	var green = '<img src="green.png" title="" alt="" border="0" height="16" width="16">';
+		                	var newl;
+		                	var newpr;
+		                	if (this.point.l > 0)
+		                		newl = green;
+		                	else
+		                		newl = red;
+		                	if (this.point.pr > 0)
+		                		newpr = green;
+		                	else
+		                		newpr = red;
+		                    return 'Harga :<b>' + this.y + '</b><br>Prediksi :' + newpr;
+		                }
+		            }, */
+
+		            series: [{
+		            	name: "jumlah",
+		            	data: val
+		            }]
+		          
+		        });
+			}
+	    });
+
+		$.getJSON('dashboard/dividen', function (data) {
+			//console.log(data);
+			var cat = new Array();
+			var val = new Array();
+			var processed_json = new Array();
+			if (data[0].nama_uuk != null) {
+				$.map(data, function (obj, i) {
+					cat.push(obj.nama_uuk);
+					val.push(parseFloat(obj.avg));
+	    			processed_json.push({ x: obj.nama_uuk,y: parseFloat(obj.avg) });
+				});
+			} else {
+				$.map(data, function (obj, i) {
+					cat.push(obj.nama_pekerjaan);
+					val.push(parseFloat(obj.keuangan_dividen));
+	    			processed_json.push({ x: obj.nama_pekerjaan,y: parseFloat(obj.keuangan_dividen) });
+				});
+			}
+			//console.log(cat);
+			//console.log(val);
+			//console.log(processed_json);
+			
+			if (data[0].nama_uuk != null) {
+		        $('#grafik-dividen').highcharts({
+		            chart: {
+		                type: 'column'
+		            },
+		            title: {
+		                text: 'Dividen Proyek'
+		            },
+		            subtitle: {
+		                text: 'rata-rata'
+		            },
+		            xAxis: {
+		            	categories: cat
+		            },
+		            yAxis: {
+		                title: {
+		                    text: 'rupiah'
+		                }
+		            },
+		            legend: {
+		                enabled: false
+		            },
+		            /*
+		            tooltip: {
+		            	useHTML: true,
+		                formatter: function() {
+		                	var red = '<img src="red.png" title="" alt="" border="0" height="16" width="16">';
+		                	var green = '<img src="green.png" title="" alt="" border="0" height="16" width="16">';
+		                	var newl;
+		                	var newpr;
+		                	if (this.point.l > 0)
+		                		newl = green;
+		                	else
+		                		newl = red;
+		                	if (this.point.pr > 0)
+		                		newpr = green;
+		                	else
+		                		newpr = red;
+		                    return 'Harga :<b>' + this.y + '</b><br>Prediksi :' + newpr;
+		                }
+		            }, */
+
+		            series: [{
+		            	name: "rata-rata",
+		            	data: val
+		            }]
+		          
+		        });
+			} else {
+				$('#grafik-dividen').highcharts({
+		            chart: {
+		                type: 'column'
+		            },
+		            title: {
+		                text: 'Dividen Proyek'
+		            },
+		            subtitle: {
+		                text: ''
+		            },
+		            xAxis: {
+		            	categories: cat
+		            },
+		            yAxis: {
+		                title: {
+		                    text: 'rupiah'
+		                }
+		            },
+		            legend: {
+		                enabled: false
+		            },
+		            /*
+		            tooltip: {
+		            	useHTML: true,
+		                formatter: function() {
+		                	var red = '<img src="red.png" title="" alt="" border="0" height="16" width="16">';
+		                	var green = '<img src="green.png" title="" alt="" border="0" height="16" width="16">';
+		                	var newl;
+		                	var newpr;
+		                	if (this.point.l > 0)
+		                		newl = green;
+		                	else
+		                		newl = red;
+		                	if (this.point.pr > 0)
+		                		newpr = green;
+		                	else
+		                		newpr = red;
+		                    return 'Harga :<b>' + this.y + '</b><br>Prediksi :' + newpr;
+		                }
+		            }, */
+
+		            series: [{
+		            	name: "jumlah",
 		            	data: val
 		            }]
 		          
@@ -254,6 +619,26 @@
 		<div class="col-md-6">
 			<div class="well">
 				<div id="grafik-kontrak"></div>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-6">
+			<div class="well">
+				<div id="grafik-pendapatan"></div>
+			</div>
+		</div>
+		<div class="col-md-6">
+			<div class="well">
+				<div id="grafik-laba"></div>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-3"> </div>
+		<div class="col-md-6">
+			<div class="well">
+				<div id="grafik-dividen"></div>
 			</div>
 		</div>
 	</div>

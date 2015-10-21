@@ -50,6 +50,9 @@ class ProyekController extends Controller {
 		$new->keuangan_usulan_penghapusan_proyek = $req->input('keuangan_usulan_penghapusan_proyek');
 		$new->keuangan_total_realisasi = $req->input('keuangan_total_realisasi');
 		$new->keuangan_pre_financing = $req->input('keuangan_pre_financing');
+		$new->keuangan_pendapatan = $req->input('keuangan_pendapatan');
+		$new->keuangan_laba = $req->input('keuangan_laba');
+		$new->keuangan_dividen = $req->input('keuangan_dividen');
 		$new->status_pekerjaan = $req->input('status_pekerjaan');
 		$new->persentase_progres_bulan_1 = $req->input('persentase_progres_bulan_1');
 		$new->persentase_progres_bulan_2 = $req->input('persentase_progres_bulan_2');
@@ -133,6 +136,9 @@ class ProyekController extends Controller {
 			$edit->keuangan_usulan_penghapusan_proyek = $req->input('keuangan_usulan_penghapusan_proyek');
 			$edit->keuangan_total_realisasi = $req->input('keuangan_total_realisasi');
 			$edit->keuangan_pre_financing = $req->input('keuangan_pre_financing');
+			$edit->keuangan_pendapatan = $req->input('keuangan_pendapatan');
+			$edit->keuangan_laba = $req->input('keuangan_laba');
+			$edit->keuangan_dividen = $req->input('keuangan_dividen');
 			$edit->status_pekerjaan = $req->input('status_pekerjaan');
 			$edit->persentase_progres_bulan_1 = $req->input('persentase_progres_bulan_1');
 			$edit->persentase_progres_bulan_2 = $req->input('persentase_progres_bulan_2');
@@ -181,8 +187,8 @@ class ProyekController extends Controller {
 
     public function dataTable($id)
     {
-    	$proyeks = Proyek::select(['id', 'id_uuk', 'nama_uuk', 'pin', 'tanggal_catat', 'nama_pekerjaan', 'nama_pemberi_kerja', 'nama_ketua_pelaksana', 'kontrak_tanggal', 'kontrak_nomor', 'kontrak_akhir_periode', 'kontrak_nilai_total', 'keuangan_invoice_total', 'keuangan_sisa_invoice_total', 'keuangan_usulan_penghapusan_proyek', 'keuangan_total_realisasi', 'keuangan_pre_financing', 'status_pekerjaan', 'persentase_progres_proyek'])
-    				->where('id', $id)
+    	$proyeks = Proyek::select(['id', 'id_uuk', 'nama_uuk', 'pin', 'tanggal_catat', 'nama_pekerjaan', 'nama_pemberi_kerja', 'nama_ketua_pelaksana', 'kontrak_tanggal', 'kontrak_nomor', 'kontrak_akhir_periode', 'kontrak_nilai_total', 'keuangan_invoice_total', 'keuangan_sisa_invoice_total', 'keuangan_usulan_penghapusan_proyek', 'keuangan_total_realisasi', 'keuangan_pre_financing', 'keuangan_pendapatan', 'keuangan_laba', 'keuangan_dividen', 'status_pekerjaan', 'persentase_progres_proyek'])
+    				->where('id_uuk', $id)
     				->get();
     	return Datatables::of($proyeks)
             ->make(true);
@@ -190,7 +196,7 @@ class ProyekController extends Controller {
 
 	public function dataTableAll()
 	{
-		$proyeks = Proyek::select(['id', 'id_uuk', 'nama_uuk', 'pin', 'tanggal_catat', 'nama_pekerjaan', 'nama_pemberi_kerja', 'nama_ketua_pelaksana', 'kontrak_tanggal', 'kontrak_nomor', 'kontrak_akhir_periode', 'kontrak_nilai_total', 'keuangan_invoice_total', 'keuangan_sisa_invoice_total', 'keuangan_usulan_penghapusan_proyek', 'keuangan_total_realisasi', 'keuangan_pre_financing', 'status_pekerjaan', 'persentase_progres_proyek'])->get();
+		$proyeks = Proyek::select(['id', 'id_uuk', 'nama_uuk', 'pin', 'tanggal_catat', 'nama_pekerjaan', 'nama_pemberi_kerja', 'nama_ketua_pelaksana', 'kontrak_tanggal', 'kontrak_nomor', 'kontrak_akhir_periode', 'kontrak_nilai_total', 'keuangan_invoice_total', 'keuangan_sisa_invoice_total', 'keuangan_usulan_penghapusan_proyek', 'keuangan_total_realisasi', 'keuangan_pre_financing', 'keuangan_pendapatan', 'keuangan_laba', 'keuangan_dividen', 'status_pekerjaan', 'persentase_progres_proyek'])->get();
         return Datatables::of($proyeks)
         	//->addColumn('action', function () {
             //    return '<a href="#" class="btn btn-xs btn-primary"><i class="glyphicon glyphicon-edit"></i> Edit</a>';
@@ -234,6 +240,9 @@ class ProyekController extends Controller {
 				$new->keuangan_usulan_penghapusan_proyek = $row['keuangan_usulan_penghapusan_proyek'];
 				$new->keuangan_total_realisasi = $row['keuangan_total_realisasi'];
 				$new->keuangan_pre_financing = $row['keuangan_pre_financing'];
+				$new->keuangan_pendapatan = $row['keuangan_pendapatan'];
+				$new->keuangan_laba = $row['keuangan_laba'];
+				$new->keuangan_dividen = $row['keuangan_dividen'];
 				$new->status_pekerjaan = $row['status_pekerjaan'];
 				$new->persentase_progres_bulan_1 = $row['persentase_progres_bulan_1'];
 				$new->persentase_progres_bulan_2 = $row['persentase_progres_bulan_2'];
