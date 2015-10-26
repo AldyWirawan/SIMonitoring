@@ -2,13 +2,13 @@
 	<div class="col-md-12">
 		<h1 class="text-center" style="margin-bottom: 40px">Akun</h1>
 
-		<!--
-		<a id="edit" class="btn btn-warning pull-left" style="visibility: hidden" data-toggle="modal" data-target="#editForm">Edit</a>
+		<a id="reset" class="btn btn-info pull-left" style="visibility: hidden">Reset Password</a>
+		<a id="edit" class="btn btn-warning pull-left" style="visibility: hidden; margin-left:10px" data-toggle="modal" data-target="#editForm">Edit Akun</a>
 		<a id="delete" class="btn btn-danger pull-left" style="visibility:hidden; margin-left:10px">Delete</a>
-		-->
+
 
 		<a id="adduser" class="btn btn-primary pull-right" data-toggle="modal" data-target="#addForm">Tambah User</a>
-		
+
 		<!--
 		<a href="#/tambah_UUK" class="btn btn-primary pull-right">Tambah Akun</a>
 		-->
@@ -43,6 +43,62 @@
       		<div class="form-group">
 				<label class="control-label col-md-2">Name</label>
 				<div class="col-md-10">
+					<input type="text" ng-model="temp_usernew.name" class="form-control" placeholder="name">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="control-label col-md-2">Email</label>
+				<div class="col-md-10">
+					<input type="text" ng-model="temp_usernew.email" class="form-control" placeholder="email">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="control-label col-md-2">Password</label>
+				<div class="col-md-10">
+					<input type="password" ng-model="temp_usernew.password" class="form-control" placeholder="password">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="control-label col-md-2">Role/UUK</label>
+				<div class="col-md-10">
+					<select ng-model="temp_usernew.role" class="form-control">
+						<option value="">- pilih role/UUK -</option>
+						<option value="admin">Admin</option>
+						<option ng-repeat="UUK in UUKs" value="{{UUK.id}}">{{UUK.nama_uuk}}</option>
+					</select>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="control-label col-md-2"></label>
+				<div class="col-md-10">
+					<button ng-click="tambah_user()" class="btn btn-success">Simpan</button>
+					<p ng-show="is_saving"><i class="fa fa-spinner fa-pulse fa-2x"></i> Loading...</p>
+				</div>
+			</div>
+		</form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div id="editForm" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Edit Akun</h4>
+      </div>
+      <div class="modal-body">
+      	<form class="form-horizontal">
+      		<div class="form-group">
+				<label class="control-label col-md-2">Name</label>
+				<div class="col-md-10">
 					<input type="text" ng-model="temp_user.name" class="form-control" placeholder="name">
 				</div>
 			</div>
@@ -71,7 +127,7 @@
 			<div class="form-group">
 				<label class="control-label col-md-2"></label>
 				<div class="col-md-10">
-					<button ng-click="tambah_user()" class="btn btn-success">Simpan</button>
+					<button ng-click="edit_user()" class="btn btn-success">Simpan</button>
 					<p ng-show="is_saving"><i class="fa fa-spinner fa-pulse fa-2x"></i> Loading...</p>
 				</div>
 			</div>
@@ -98,6 +154,55 @@
 			processing: true,
 			ajax: 'user/dataTableAll',
 		});
-		
+
+		$('#user tbody').on( 'click', 'tr', function () {
+					if ( $(this).hasClass('selected') ) {
+							$(this).removeClass('selected');
+							document.getElementById('reset').style.visibility = 'hidden';
+							document.getElementById('delete').style.visibility = 'hidden';
+							document.getElementById('edit').style.visibility = 'hidden';
+					}
+					else {
+							table.$('tr.selected').removeClass('selected');
+							$(this).addClass('selected');
+							var temp = table.row('.selected').data();
+							document.getElementById('reset').style.visibility = 'visible';
+							if (table.row('.selected').data()[3] == 'admin') {
+								document.getElementById('delete').style.visibility = 'visible';
+								document.getElementById('edit').style.visibility = 'visible';
+								mediator.publish('updatetemp', temp);
+							} else {
+								document.getElementById('delete').style.visibility = 'hidden';
+								document.getElementById('edit').style.visibility = 'hidden';
+							}
+							console.log(temp);
+
+					}
+			} );
+
+			$('#delete').click( function () {
+				if (confirm('Apakah anda yakin akan menghapus user ini?')) {
+					$.ajax({
+		           		type: "DELETE",
+		           		url: "user/"+table.row('.selected').data()[0],
+		           		success: function(){
+		                	table.row('.selected').remove().draw( false );
+		           		}
+		        	});
+		        }
+			})
+
+			$('#reset').click( function () {
+				if (confirm('Apakah anda yakin akan melakukan reset password menjadi 1234567890 terhadap user ini?')) {
+					$.ajax({
+		           		type: "POST",
+		           		url: "user/resetPass/"+table.row('.selected').data()[0],
+		           		success: function(res){
+											alert ("Password "+res.status);
+		           		}
+		        	});
+		        }
+			})
+
 	})
 </script>

@@ -1,7 +1,7 @@
 var app = angular.module('simonApp',['ngRoute']);
 
 app.run(function(){
-	
+
 });
 
 app.service('mediator', function(){
@@ -65,11 +65,19 @@ app.factory("UserSvc", function($http){
 			var req = $http({method:'POST', url:'user/create', params:data});
 			return req;
 		},
+		update: function(id, data){
+			var req = $http({method:'POST', url:'user/edit/'+id, params:data});
+			return req;
+		},
+		editPass: function(data){
+			var req = $http({method:'POST', url:'user/editPass', params:data});
+			return req;
+		}
 	}
 })
 
 app.controller('DashboardCtrl', function($http, $scope){
-	
+
 })
 
 app.controller('ProyekCtrl', function($scope, ProyekSvc, UUKSvc){
@@ -167,7 +175,7 @@ app.controller('ProyekCtrl', function($scope, ProyekSvc, UUKSvc){
 		};
 		$scope.id = selected.id;
 	}
-	
+
 	mediator.subscribe('updatetemp', function(data){
 		$scope.update_temp(data);
 		$scope.$apply();
@@ -319,14 +327,14 @@ app.controller('TambahProyekCtrl', function($scope, $http, ProyekSvc, UUKSvc){
 		});
 	}
 	$http({
-		url:'login/role', 
+		url:'login/role',
 		method:'GET',
 	}).success(function (data) {
 		$scope.role = data;
 		$scope.updateTempProyek($scope.role);
-		
+
 	})
-	
+
 	$scope.get_proyeks();
 	$scope.get_UUKs();
 
@@ -379,19 +387,42 @@ app.controller('ManageAkunCtrl', function($scope, UUKSvc, UserSvc) {
 	}
 	$scope.tambah_user = function(){
 		$scope.is_saving = true;
-		var req = UserSvc.create($scope.temp_user);
+		var req = UserSvc.create($scope.temp_usernew);
 		req.success(function(res){
 			$scope.is_saving = false;
 			if(!alert("User "+res.status)){window.location.reload();}
 		});
 	}
+	$scope.edit_user = function(){
+		$scope.is_saving = true;
+		var req = UserSvc.update($scope.temp_user.id, $scope.temp_user);
+		req.success(function(res){
+			$scope.is_saving = false;
+			if(!alert("User "+res.status)){window.location.reload();}
+		});
+	}
+	$scope.update_temp = function(selected){
+		$scope.temp_user =
+		{
+			id :selected[0],
+			name :selected[1],
+			email :selected[2],
+			role :selected[3],
+		};
+	}
+
+	mediator.subscribe('updatetemp', function(data){
+		$scope.update_temp(data);
+		$scope.$apply();
+	})
+
 	$scope.get_UUKs();
 })
 
 
-app.controller('NavController', function($rootScope, $http, $location){
+app.controller('NavController', function($rootScope, $scope, $http, $location){
 	$http({
-		url:'login/role', 
+		url:'login/role',
 		method:'GET',
 	}).success(function (data) {
 		//console.log(data);
@@ -404,11 +435,23 @@ app.controller('NavController', function($rootScope, $http, $location){
     	});
 	})
 
-	
+	$rootScope.ubah_password = function() {
+		console.log("uba pas");
+		if ($scope.temp_pass.pass != $scope.temp_pass.confirm) {
+			alert("password dan konfirmasi tidak sama!");
+		} else {
+			$scope.is_saving = true;
+			var req = UserSvc.editPass($scope.temp_pass);
+			req.success(function(res){
+				$scope.is_saving = false;
+				if(!alert("Password "+res.status)){window.location.reload();}
+			});
+		}
+	}
 });
- 
+
 //This will handle all of our routing
-app.config(function($routeProvider, $locationProvider){	
+app.config(function($routeProvider, $locationProvider){
 	$routeProvider.when('/',{
 		templateUrl:'aset/simon/pages/beranda.html',
 		controller:'DashboardCtrl'
@@ -441,7 +484,7 @@ app.config(function($routeProvider, $locationProvider){
 /*
 var checkRouting = function ($q, $rootScope, $location, $http) {
     $http({
-		url:'login/role', 
+		url:'login/role',
 		method:'GET',
 	}).success(function (data) {
 		//console.log(data);

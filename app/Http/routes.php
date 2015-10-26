@@ -48,7 +48,11 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('user/dataTableAll', 'UserController@dataTableAll');
 
 	Route::post('user/create', 'UserController@create');
+	Route::post('user/editPass', 'UserController@editPass');
+	Route::post('user/resetPass/{id}', 'UserController@resetPass');
+	Route::post('user/edit/{id}', 'UserController@editAkun');
 
 	Route::resource('proyek', 'ProyekController');
 	Route::resource('uuk', 'UUKController');
+	Route::resource('user', 'UserController');
 });
