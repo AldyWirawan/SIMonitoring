@@ -4,6 +4,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\UUK;
 use App\Proyek;
+use App\User;
 
 use Illuminate\Http\Request;
 
@@ -35,7 +36,7 @@ class UUKController extends Controller {
 		$new->kepemilikan_ITB = $req->input('kepemilikan_ITB');
 		$new->penjabat = $req->input('penjabat');
 		$new->alamat = $req->input('alamat');
-		
+
 		if($new->save()){
 			return array('status'=>'Saved!');
 		}
@@ -71,7 +72,7 @@ class UUKController extends Controller {
 	 */
 	public function edit($id)
 	{
-		//	
+		//
 	}
 
 	/**
@@ -106,6 +107,14 @@ class UUKController extends Controller {
 	 */
 	public function destroy($id)
 	{
+		$proyeks = Proyek::where('id_uuk', $id)->get();
+		foreach ($proyeks as $proyek) {
+			$proyek -> delete();
+		}
+		$akuns = User::where('role', $id)->get();
+		foreach ($akuns as $akun) {
+			$akun -> delete();
+		}
 		$del = UUK::find($id);
 		if($del){
 			if($del->delete()){

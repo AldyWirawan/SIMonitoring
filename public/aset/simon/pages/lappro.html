@@ -374,10 +374,10 @@
 
 		var role;
 
-		$.ajax({ 
+		$.ajax({
 			type: "GET",
 	        url: "login/role",
-		    success: function(data){  
+		    success: function(data){
 		       role = data;
 		       datatable();
 		     }
@@ -392,34 +392,38 @@
 					columns: [
 						{data: 'id', name: 'id'},
 						{data: 'id_uuk', name: 'id_uuk'},
-			            {data: 'nama_uuk', name: 'nama_uuk'},
-			            {data: 'pin', name: 'pin'},
-			            {data: 'tanggal_catat', name: 'tanggal_catat'},
-			            {data: 'nama_pekerjaan', name: 'nama_pekerjaan'},
-			            {data: 'nama_pemberi_kerja', name: 'nama_pemberi_kerja'},
-			            {data: 'nama_ketua_pelaksana', name: 'nama_ketua_pelaksana'},
-			            {data: 'kontrak_tanggal', name: 'kontrak_tanggal'},
-			            {data: 'kontrak_nomor', name: 'kontrak_nomor'},
-			            {data: 'kontrak_akhir_periode', name: 'kontrak_akhir_periode'},
-			            {data: 'kontrak_nilai_total', name: 'kontrak_nilai_total'},
-			            {data: 'keuangan_invoice_total', name: 'keuangan_invoice_total'},
-			            {data: 'keuangan_sisa_invoice_total', name: 'keuangan_sisa_invoice_total'},
-			            {data: 'keuangan_usulan_penghapusan_proyek', name: 'keuangan_usulan_penghapusan_proyek'},
-			            {data: 'keuangan_total_realisasi', name: 'keuangan_total_realisasi'},
-			            {data: 'keuangan_pre_financing', name: 'keuangan_pre_financing'},
-			            {data: 'keuangan_pendapatan', name: 'keuangan_pendapatan'},
-			            {data: 'keuangan_laba', name: 'keuangan_laba'},
-			            {data: 'keuangan_dividen', name: 'keuangan_dividen'},
-			            {data: 'status_pekerjaan', name: 'status_pekerjaan'},
-			            {data: 'persentase_progres_proyek', name: 'persentase_progres_proyek'},
-		        	],
-		        	columnDefs: [
-		        		{
-		        			targets:[ 0,1 ],
-		        			visible: false,
-		        			searchable: false,
-		        		}
-		        	]
+			      {data: 'nama_uuk', name: 'nama_uuk'},
+			      {data: 'pin', name: 'pin'},
+			      {data: 'tanggal_catat', name: 'tanggal_catat'},
+			      {data: 'nama_pekerjaan', name: 'nama_pekerjaan'},
+			      {data: 'nama_pemberi_kerja', name: 'nama_pemberi_kerja'},
+			      {data: 'nama_ketua_pelaksana', name: 'nama_ketua_pelaksana'},
+			      {data: 'kontrak_tanggal', name: 'kontrak_tanggal'},
+			      {data: 'kontrak_nomor', name: 'kontrak_nomor'},
+			      {data: 'kontrak_akhir_periode', name: 'kontrak_akhir_periode'},
+			      {data: 'kontrak_nilai_total', name: 'kontrak_nilai_total'},
+			      {data: 'keuangan_invoice_total', name: 'keuangan_invoice_total'},
+			      {data: 'keuangan_sisa_invoice_total', name: 'keuangan_sisa_invoice_total'},
+			      {data: 'keuangan_usulan_penghapusan_proyek', name: 'keuangan_usulan_penghapusan_proyek'},
+			      {data: 'keuangan_total_realisasi', name: 'keuangan_total_realisasi'},
+			      {data: 'keuangan_pre_financing', name: 'keuangan_pre_financing'},
+			      {data: 'keuangan_pendapatan', name: 'keuangan_pendapatan'},
+			      {data: 'keuangan_laba', name: 'keuangan_laba'},
+			      {data: 'keuangan_dividen', name: 'keuangan_dividen'},
+			      {data: 'status_pekerjaan', name: 'status_pekerjaan'},
+			      {data: 'persentase_progres_proyek', name: 'persentase_progres_proyek'},
+		      ],
+		      columnDefs: [
+		      	{
+		      		targets:[ 0,1 ],
+		      		visible: false,
+		      		searchable: false,
+		      	}
+		      ],
+					dom: 'Bfrtip',
+					buttons: [
+						'copyHtml5', 'excelHtml5', 'pdfHtml5'
+					]
 				});
 			} else {
 				var table = $('#proyek').DataTable( {
@@ -429,34 +433,34 @@
 					columns: [
 						{data: 'id', name: 'id'},
 						{data: 'id_uuk', name: 'id_uuk'},
-			            {data: 'nama_uuk', name: 'nama_uuk'},
-			            {data: 'pin', name: 'pin'},
-			            {data: 'tanggal_catat', name: 'tanggal_catat'},
-			            {data: 'nama_pekerjaan', name: 'nama_pekerjaan'},
-			            {data: 'nama_pemberi_kerja', name: 'nama_pemberi_kerja'},
-			            {data: 'nama_ketua_pelaksana', name: 'nama_ketua_pelaksana'},
-			            {data: 'kontrak_tanggal', name: 'kontrak_tanggal'},
-			            {data: 'kontrak_nomor', name: 'kontrak_nomor'},
-			            {data: 'kontrak_akhir_periode', name: 'kontrak_akhir_periode'},
-			            {data: 'kontrak_nilai_total', name: 'kontrak_nilai_total'},
-			            {data: 'keuangan_invoice_total', name: 'keuangan_invoice_total'},
-			            {data: 'keuangan_sisa_invoice_total', name: 'keuangan_sisa_invoice_total'},
-			            {data: 'keuangan_usulan_penghapusan_proyek', name: 'keuangan_usulan_penghapusan_proyek'},
-			            {data: 'keuangan_total_realisasi', name: 'keuangan_total_realisasi'},
-			            {data: 'keuangan_pre_financing', name: 'keuangan_pre_financing'},
-			            {data: 'keuangan_pendapatan', name: 'keuangan_pendapatan'},
-			            {data: 'keuangan_laba', name: 'keuangan_laba'},
-			            {data: 'keuangan_dividen', name: 'keuangan_dividen'},
-			            {data: 'status_pekerjaan', name: 'status_pekerjaan'},
-			            {data: 'persentase_progres_proyek', name: 'persentase_progres_proyek'},
-		        	],
-		        	columnDefs: [
-		        		{
-		        			targets:[ 0,1 ],
-		        			visible: false,
-		        			searchable: false,
-		        		}
-		        	]
+			      {data: 'nama_uuk', name: 'nama_uuk'},
+			      {data: 'pin', name: 'pin'},
+			      {data: 'tanggal_catat', name: 'tanggal_catat'},
+			      {data: 'nama_pekerjaan', name: 'nama_pekerjaan'},
+			      {data: 'nama_pemberi_kerja', name: 'nama_pemberi_kerja'},
+			      {data: 'nama_ketua_pelaksana', name: 'nama_ketua_pelaksana'},
+			      {data: 'kontrak_tanggal', name: 'kontrak_tanggal'},
+			      {data: 'kontrak_nomor', name: 'kontrak_nomor'},
+			      {data: 'kontrak_akhir_periode', name: 'kontrak_akhir_periode'},
+			      {data: 'kontrak_nilai_total', name: 'kontrak_nilai_total'},
+			      {data: 'keuangan_invoice_total', name: 'keuangan_invoice_total'},
+			      {data: 'keuangan_sisa_invoice_total', name: 'keuangan_sisa_invoice_total'},
+			      {data: 'keuangan_usulan_penghapusan_proyek', name: 'keuangan_usulan_penghapusan_proyek'},
+			      {data: 'keuangan_total_realisasi', name: 'keuangan_total_realisasi'},
+			      {data: 'keuangan_pre_financing', name: 'keuangan_pre_financing'},
+			      {data: 'keuangan_pendapatan', name: 'keuangan_pendapatan'},
+			      {data: 'keuangan_laba', name: 'keuangan_laba'},
+			      {data: 'keuangan_dividen', name: 'keuangan_dividen'},
+			      {data: 'status_pekerjaan', name: 'status_pekerjaan'},
+			      {data: 'persentase_progres_proyek', name: 'persentase_progres_proyek'},
+		    	],
+		    	columnDefs: [
+		    		{
+		    			targets:[ 0,1 ],
+		    			visible: false,
+		    			searchable: false,
+		        }
+		    	],
 				});
 			}
 
@@ -491,6 +495,6 @@
 		        }
 			})
 		}
-		
+
 	})
 </script>

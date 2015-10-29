@@ -139,7 +139,7 @@
 		$('#delete').click( function () {
 			// table.row('.selected').data().id
 			//table.row('.selected').remove().draw( false );
-			if (confirm('Apakah anda yakin akan menghapus uuk ini?')) {
+			if (confirm('Apakah anda yakin akan menghapus UUK ini? WARNING: semua proyek dan akun yang terkait dengan UUK ini akan dihapus!')) {
 				$.ajax({
 	           		type: "DELETE",
 	           		url: "uuk/"+table.row('.selected').data().id,
@@ -149,6 +149,6 @@
 	        	});
 	        }
 		})
-		
+
 	})
 </script>
