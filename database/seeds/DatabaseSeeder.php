@@ -54,7 +54,7 @@ class UUKTableSeeder extends Seeder {
 
 	public function run()
 	{
-		DB::table('Proyek')->delete(); // tackling foreign key restriction
+		DB::table('proyek')->delete(); // tackling foreign key restriction
 		DB::table('UUK')->delete();
 		UUK::create([
 			'nama_uuk' => 'UUK A',
